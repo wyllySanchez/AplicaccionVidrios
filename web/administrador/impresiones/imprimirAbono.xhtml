@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+  
+    <h:body>
+  <ui:composition template="./../../layaut/TemplateAdmin.xhtml">
+
+            <ui:define name="top">
+        
+                <div class="panel-body">
+                    <h:form  styleClass="form-group" >
+                        <p:dataTable id="tbl" var="lista" value="#{mbAbonos.byIdFactura}">
+                            <f:facet   name="header">
+                                <a>
+                                <img class="logotipo" alt="Brand" src="/ProyVidrios/resources/imagenes/imgdv.jpg" width="50" height="25" style="background: #fff;"></img>
+                             </a>
+                           <h3>Decorvidrios</h3> Elio Fabio Peñaloza.
+                                        NIT: 16280385-9.
+                                        <br></br>
+                                        Telefono:2723025 2759959.
+                                        Direccion: calle 30 # 30-54.
+                               
+                               <!-- factura de venta  N° # {factura.facturaActual.idfacturas}-->
+                            </f:facet>
+
+                            <p:columnGroup  type="header">
+                                <p:row>
+                                    <p:column colspan="1" headerText="cliente: #{mbCliente.getById(mbAbonos.facturaActual.cliente.idcliente).nombre}" />
+                                    <p:column colspan="1" headerText="Empleado: #{beanEmpleado.getById(mbAbonos.facturaActual.empleado.idempleado).nombre}" />
+                                    <p:column colspan="1" headerText="Fecha: #{mbAbonos.facturaActual.fecharegistro}" />
+                                    <p:column colspan="1" headerText="Abono N°:#{mbAbonos.facturaActual.idabonos}"/>
+
+                                </p:row>
+
+
+
+                                <p:row>
+                                    <p:column headerText="Nombre producto" />
+                                    <p:column headerText="Precio unitario" />
+                                    <p:column headerText="Cantidad" />
+                                    <p:column headerText="Subtotal" />
+                                </p:row>
+                            </p:columnGroup>
+
+                            <p:column headerText="Nombre producto">
+                                <h:outputText value="#{lista.nombrepro}" />
+                            </p:column>
+                            <p:column  headerText="Precio de venta">
+                                <h:outputText value="#{lista.precioventa}" />
+                            </p:column>
+                            <p:column  headerText="Cantidad">
+                                <h:outputText value="#{lista.cantidad}" />
+                            </p:column>
+                            <p:column  headerText="Total">
+                                <h:outputText value="#{lista.total}">
+                                    <f:convertNumber type="currency" currencySymbol="$" />
+                                </h:outputText>
+                            </p:column>
+
+                            <p:columnGroup type="footer">
+                                <p:row>
+                                    <p:column footerText=""/>
+                                 <p:column footerText="total$ #{mbAbonos.facturaActual.precioTotal}"/>
+                                            <p:column footerText="Monto Abono$: #{mbAbonos.facturaActual.montoabono}" />
+                                            <p:column footerText="Saldo pendiente$:#{mbAbonos.facturaActual.saldofinal}" />
+                                         
+                                </p:row>
+                            </p:columnGroup>
+                        </p:dataTable>
+
+                    </h:form>
+
+
+                </div>
+
+            </ui:define>
+
+            <ui:define name="content">
+            </ui:define>
+
+            <ui:define name="bottom">
+
+            </ui:define>
+
+        </ui:composition>    </h:body>
+</html>
+

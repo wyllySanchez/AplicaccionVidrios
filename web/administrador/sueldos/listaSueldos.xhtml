@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../layaut/TemplateAdmin.xhtml">
+
+            <ui:define name="top">
+                <div class="container">
+                    <div class="row">
+                        <h1>Lista de Sueldos</h1>
+
+                        <div style="overflow-y: scroll; height: 200px;" class="col-lg-12">
+                            <table class="table table-bordered">
+                                <tr class="danger">
+                                    <th style="margin-left: 20px;">Codigo</th>
+
+                                    <th style="margin-left: 20px; ">Empleado</th>
+                                    <th style="margin-left: 20px;">Sueldo Base</th>
+                                    <th style="margin-left: 20px;">Comision</th>
+                                    <th style="margin-left: 20px;">Horas Extras</th>
+                                    <th style="margin-left: 20px;">Descuentos</th>
+                                    <th style="margin-left: 20px;">Sueldo total</th>
+                                       <th style="margin-left: 20px;">Fecha</th>
+                               </tr>
+                                <tbody style="color:#ffffff;">
+                                    <ui:repeat var="item" value="#{beanSueldo.all}" varStatus="status">
+                                        <h:panelGroup>
+                                            <tr>
+                                                <td>#{item.idsueldo}</td>
+
+                                                <td>#{beanEmpleado.getById(item.empleado.idempleado).getNombre()}</td>
+                                                <td>#{item.sueldoBase}</td>
+                                                <td>#{item.comision}</td>
+                                                <td>#{item.horasExtras}</td>
+                                                <td>#{item.descuentos}</td>
+                                                <td>#{item.sueldoTotal}</td>
+                                                <td>#{item.fechaCreacionSueldo}</td>
+                                            </tr>
+                                        </h:panelGroup>
+
+
+                                    </ui:repeat>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <h:form id="frmEditarSueldo">
+                    <p:dialog header="Datos del sueldo" widgetVar="dialogoEditarSueldo" modal="true">
+                        <h:panelGrid id="panelEditarSueldo" columns="3">
+                      <p:outputLabel value="Empleado " for="txtSueldoBase"/>
+                            <p:selectOneMenu  value="#{beanSueldo.codigoEmpleado}"  required="true" class="form-group col-lg-12">
+                                <f:selectItem itemLabel="Selecione Nombre Empleado" itemValue="1" />
+                                <f:selectItems value="#{beanEmpleado.all}" var="empleado" itemLabel="#{empleado.nombre}" itemValue="#{empleado.idempleado}" />
+                            </p:selectOneMenu>
+                      <br></br>
+
+                            <p:outputLabel value="Sueldo Base " for="txtSueldoBase"/>
+                            <p:inputText id="txtSueldoBase" label="Sueldo Base" size="50" value="#{beanSueldo.sueldo.sueldoBase}">
+                                <f:validator validatorId="validatorVacio"/>
+                            </p:inputText>
+                            <p:message for="txtSueldoBase"/>
+
+                            <p:outputLabel value="Comision " for="txtComision"/>
+                            <p:inputText id="txtComision" label="Comision" size="50" value="#{beanSueldo.sueldo.comision}">
+                                <f:validator validatorId="validatorVacio"/>
+                            </p:inputText>
+                            <p:message for="txtComision"/>
+
+                            <p:outputLabel value="Horas Extras " for="txtHorasExtras"/>
+                            <p:inputText id="txtHorasExtras" label="Horas Extras" size="50" value="#{beanSueldo.sueldo.horasExtras}">
+                                <f:validator validatorId="validatorVacio"/>
+                            </p:inputText>
+
+                            <p:message for="txtDescuentos"/> 
+                            <p:outputLabel value="Descuentos " for="txtDescuentos"/>
+                            <p:inputText id="txtDescuentos" label="Descuentos" size="50" value="#{beanSueldo.sueldo.descuentos}">
+                                <f:validator validatorId="validatorVacio"/>
+                            </p:inputText>
+                                <br></br>
+                            <p:outputLabel value="Sueldo Total " for="txtSueldoTotal"/>
+                            <p:inputText id="txtSueldoTotal" label="Sueldo Total" size="50" value="#{beanSueldo.sueldo.sueldoTotal}">
+                                <f:validator validatorId="validatorVacio"/>
+                            </p:inputText>
+                            <p:message for="txtSueldoTotal"/>
+
+                            <h:panelGroup></h:panelGroup>
+                            <p:commandButton value="Guardar cambios" ajax="false" actionListener="#{beanSueldo.update()}"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+
+
+            <ui:define name="content">
+             
+
+            </ui:define>
+            <ui:define name="bottom">
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

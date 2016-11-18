@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../layaut/TemplateAdmin.xhtml">
+
+            <ui:define name="top">
+                       <div class="container">
+                <h:form id="frmListaProductos">
+                    <p:growl id="mensajeGeneral" showDetail="true" sticky="false" />
+                
+                    <p:dataTable id="tablaListaProductos" var="item" value="#{beanProductos.all}" paginator="true" rows="2" selection="#{beanProductos.productos}" selectionMode="single" rowKey="#{item.idproductos}" filteredValue="#{beanProductos.listaProductosFiltrado}">
+
+
+                        <f:facet name="header">
+                        <h2>Lista de Productos</h2>
+                        </f:facet>
+                        <p:column headerText="Imagen" >
+          <p:graphicImage value="#{FacesContext.getCurrentInstance().getExternalContext()}/carpetaProductos/#{item.idproductos}.png" width="200" height="190" cache="false" alt="Sin definir" style="border-radius: 4px;box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7)"/>
+
+                        </p:column>
+
+                        <p:column headerText="Nombre" >
+                            <h:outputText value="#{item.nombre}"/>
+
+                        </p:column>
+                        <p:column headerText="Tipo" >
+                            <h:outputText value="#{item.tipo}"/>
+
+                        </p:column>
+                        <p:column headerText="Editar" >
+                   <p:commandButton value="Editar Datos" actionListener="#{beanProductos.cargarProductosEditar(item.idproductos)}"/>   
+                        </p:column>
+                        <p:column headerText="Imagen ">
+            <p:commandButton actionListener="#{beanProductos.cargarEmpleadoEditarAvatar(item.idproductos)}" value="Actualizar avatar"/>
+                        </p:column>
+
+
+
+                    </p:dataTable>
+                </h:form>
+                       </div>
+
+                <h:form id="frmEditarEmpleado">
+                    <p:dialog header="Datos del Empleado" widgetVar="dialogoEditarEmpleado" modal="true">
+                        <h:panelGrid id="panelEditarEmpleado" columns="3">
+
+                            <h:panelGroup></h:panelGroup>
+                            <p:outputLabel value="Nombre" for="txtNombre"/>
+                            <p:inputText id="txtNombre" label="Nombre" size="50" value="#{beanProductos.productoSelect.nombre}">
+                                <f:validator validatorId="validatorVacio"/>
+                            </p:inputText>
+                            <p:message for="txtNombre"/>
+                            <p:outputLabel value="Tipo " for="txtTipo"/>
+                            <p:inputText id="txtTipo" label="Tipo" size="50" value="#{beanProductos.productoSelect.tipo}">
+                                <f:validator validatorId="validatorVacio"/>
+                            </p:inputText>
+                            <p:message for="txtTipo"/>
+
+
+
+
+
+                            <h:panelGroup></h:panelGroup>
+                            <p:commandButton value="Guardar cambios" ajax="false" actionListener="#{beanProductos.actualizar()}"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+                <p:dialog id="avatarEmple" header="Actualizar avatar" widgetVar="dialogoActualizarAvatar" modal="true">
+                    <h:form id="frmActualizarAvatar" enctype="multipart/form-data">
+
+                        <p:fileUpload id="txtAvatar" mode="simple" value="#{beanProductos.avatar}"/>
+                        <p:commandButton value="Actualizar avatar" ajax="false" actionListener="#{beanProductos.actualizarAvatar()}"/>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+
+            <ui:define name="bottom">
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

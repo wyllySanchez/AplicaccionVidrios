@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../layaut/TemplateAdmin.xhtml">
+
+            <ui:define name="top">
+                <div class="container" style="margin-top: 30px;">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                            <div id="imprimeDiv">
+                                <p:outputLabel value="hola" rendered="false"></p:outputLabel>
+
+                                <div  class="panel panel-default div2">
+                                    <div class="panel-heading " style="background-color: #b2dba1;">Precio cotizacion Vitrinas</div>
+                                    <div class="panel-body">
+                                        <h:form  styleClass="form-group" >
+                                            <h:outputText value="Nombre producto: #{mbCalcularVitrina.nombreProducto} ">
+                                            </h:outputText> 
+                                            <br></br>
+                                            <h:outputText value="  Precio Unitario $ :  #{mbCalcularVitrina.precioTotal}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="  Cantidad Ventanas :  #{mbCalcularVitrina.mensajeCanti}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="  Precio total $ :  #{mbCalcularVitrina.precioTotalCantidad}">
+                                            </h:outputText>
+                                            <br></br>
+
+                                        </h:form>
+                                    </div>
+                                </div>
+
+
+                                <div class="panel panel-default div2">
+                                    <div class="panel-heading " style="background-color: #b2dba1;">Medida Recorte de Materiales Vitrinas</div>
+                                    <div class="panel-body">
+                                        <h:form  styleClass="form-group" >
+
+                                            <h:outputText value=" Recorte: #{mbCalcularVitrina.mensajeCuartoCirculoAlto}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value=" Recorte: #{mbCalcularVitrina.mensajeCuartoCirculoAncho}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value=" Recorte:  #{mbCalcularVitrina.mensajeCuartoCirculoFondo}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value=" Recorte:  #{mbCalcularVitrina.mensajeAnguloMediaAlto}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="  Recorte:  #{mbCalcularVitrina.mensajeAnguloMediaAncho}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="  Recorte:  #{mbCalcularVitrina.mensajeAnguloMediaFondo}">
+                                            </h:outputText>
+                                            <br></br>
+
+                                            <h:outputText value="  Recorte:  #{mbCalcularVitrina.mensajeNaveDivisionAncho}">
+                                            </h:outputText>
+                                            <br></br>
+
+                                            <h:outputText value="  Recorte :  #{mbCalcularVitrina.mensajeVidrioAltoAncho}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="  Recorte :  #{mbCalcularVitrina.mensajeVidrioAltoFondo}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="  Recorte :  #{mbCalcularVitrina.mensajeVidrioAnchoFondo}">
+                                            </h:outputText>
+
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                            <div class="panel panel-default div2">
+                                <div class="panel-heading " style="background-color: #b2dba1;"> Realizar Cotizacio Vitrina</div>
+                                <div class="panel-body">
+                                    <h:form  styleClass="form-group" >
+                                        <p:growl id="growl" showDetail="true" sticky="true" /> 
+
+                                        <label>Digite el Alto</label>
+                                        <h:inputText styleClass="form-control" value="#{mbCalcularVitrina.alto}"></h:inputText>
+
+                                        <label class="bajar">Digite el Ancho</label>
+                                        <h:inputText  value="#{mbCalcularVitrina.ancho}" styleClass="form-control"></h:inputText>
+                                        <label>Digite el Fondo</label>
+                                        <h:inputText styleClass="form-control" value="#{mbCalcularVitrina.fondo}"></h:inputText>
+
+                                        <label class="bajar">Digite el porcentaje de ganancia</label>
+                                        <h:inputText value="#{mbCalcularVitrina.ganancia}" styleClass="form-control"></h:inputText>
+                                        <label class="bajar">Digite el costo de la mano de obra</label>
+                                        <h:inputText value="#{mbCalcularVitrina.manObra}"  styleClass="form-control"></h:inputText>
+                                        <label class="bajar">Cantidad de Vitrinas</label>
+                                        <h:inputText value="#{mbCalcularVitrina.canti}"  styleClass="form-control"></h:inputText>
+                                        <h:selectOneMenu value="#{mbCalcularVitrina.idVidrio}" styleClass="form-control" style="margin-top: 10px;">
+                                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de vidrio"/>
+                                            <f:selectItems value="#{mbVidrios.all}" var="vidrio" itemLabel="#{vidrio.calibre}" itemValue="#{vidrio.idvidrios}"/>
+                                        </h:selectOneMenu>
+                                        <h:selectOneMenu value="#{mbCalcularVitrina.tipoVitrina}" styleClass="form-control" style="margin-top: 10px;">
+                                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Vitrina"/>
+                                            <f:selectItem itemValue="1" itemLabel="Vitrina CuartoCirculo 1 1/2"/>
+                                            <f:selectItem itemValue="2" itemLabel="Vitrina Perfil Esquinero 1"/>
+                                            <f:selectItem itemValue="3" itemLabel="Vitrina Pefil Esquinero 1 Larga"/>
+                                        </h:selectOneMenu> 
+                                        <h:selectOneMenu value="#{mbCalcularVitrina.tipoEntrepanos}" styleClass="form-control" style="margin-top: 10px;">
+                                            <f:selectItem itemValue="0" itemLabel="Seleccione Cantidad Entrepaños"/>
+                                            <f:selectItem itemValue="1" itemLabel="3 entrepaños"/>
+                                            <f:selectItem itemValue="2" itemLabel="4 entrepaños"/>
+
+                                        </h:selectOneMenu>
+                                        <h:commandButton styleClass="btn btn-info col-lg-6 col-md-6 col-sm-6 col-xs-6  bajar" value="Calcular Vitrina" actionListener="#{mbCalcularVitrina.calcularCosto()}">
+                                        </h:commandButton>
+                                        <a onclick="imprimir()" class="btn btn-warning col-lg-6 col-md-6 col-sm-6 col-xs-6 bajar">Imprimir</a>
+
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </ui:define>
+
+            <ui:define name="bottom">
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

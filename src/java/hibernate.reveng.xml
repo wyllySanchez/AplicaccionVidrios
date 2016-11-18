@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="vidrieria"/>
+  <table-filter match-name="vitrinas"/>
+  <table-filter match-name="cliente"/>
+  <table-filter match-name="facturas"/>
+  <table-filter match-name="puertas"/>
+  <table-filter match-name="ciudad"/>
+  <table-filter match-name="departamento"/>
+  <table-filter match-name="abonosecundario"/>
+  <table-filter match-name="sueldo"/>
+  <table-filter match-name="materiales"/>
+  <table-filter match-name="abonodetalle"/>
+  <table-filter match-name="productos"/>
+  <table-filter match-name="vidrios"/>
+  <table-filter match-name="cotizacion"/>
+  <table-filter match-name="abonos"/>
+  <table-filter match-name="tipodocumento"/>
+  <table-filter match-name="rol"/>
+  <table-filter match-name="ventanadetalle"/>
+  <table-filter match-name="cotizaciondetalle"/>
+  <table-filter match-name="empleado"/>
+</hibernate-reverse-engineering>

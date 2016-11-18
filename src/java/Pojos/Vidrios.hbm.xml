@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2/11/2016 10:27:34 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Vidrios" table="vidrios" catalog="vidrieria" optimistic-lock="version">
+        <id name="idvidrios" type="java.lang.Integer">
+            <column name="idvidrios" />
+            <generator class="identity" />
+        </id>
+        <property name="calibre" type="string">
+            <column name="calibre" length="45" not-null="true" />
+        </property>
+        <property name="preciocost" type="int">
+            <column name="preciocost" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

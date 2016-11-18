@@ -1,0 +1,52 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+    margin:0px;
+    padding:0px;}
+
+.color{
+    background-color:#00B0FF !important;
+    color:white !important;
+}
+
+.bajar{
+    margin-top:10px;}
+
+
+#ventana{
+    width:300px;
+    height:300px;
+
+
+
+}
+/*body{
+    background-image: url(..//imagenes/imgVerdes.jpg);  
+    background-attachment:fixed;
+    background-repeat:no-repeat;
+    background-size:100% ;
+}
+*/
+form{
+    /*
+    margin-left:  800px;
+    width: 450px;
+    height: 300px;*/
+    background-color:#000;
+    border-radius: 10px;
+    color: white;
+    margin-top: 100px;
+    margin-left: 100px;
+     padding: 20px;
+}
+input{
+   border-radius: 15px;
+
+}
+h1{
+    color: #ffffff;
+}
+
+div {
+
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2/11/2016 10:27:34 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Tipodocumento" table="tipodocumento" catalog="vidrieria" optimistic-lock="version">
+        <id name="idtipodocumento" type="int">
+            <column name="idtipodocumento" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombretd" type="string">
+            <column name="nombretd" length="45" not-null="true" />
+        </property>
+        <set name="clientes" table="cliente" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idtipodocumento" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Cliente" />
+        </set>
+        <set name="empleados" table="empleado" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idtipodocumento" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Empleado" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,313 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../layaut/TemplateAdmin.xhtml">
+
+            <ui:define name="top">
+                <h:form>
+                    <h:panelGrid  width="900px" style="margin: 0 auto; background-color: #045491">
+                        <p:commandButton value="Realizar Nueva Abono" 
+                                         update=":frmAbonos" action="#{mbAbonos.enebleButton()}"
+                                         style="width: 100%; height: 50px;"/> 
+                    </h:panelGrid>
+                </h:form>
+                <h:form id="frmAbonos">
+                    <p:growl id="mensajeGeneral" showDetail="true" autoUpdate="true" life="3000"/>
+                    <p:panel header=""  style="width: 900px;text-align: center; margin: 0 auto;" >
+                        <p:layout id="capaDatosClientesFactura" style="width: 100%; height: 150px;">
+                            <p:layoutUnit id="DatosCliente" position="center" style="padding: 5px; 
+                                          font-size: 14px; text-align: justify" size="250">
+
+                                <h:panelGrid id="gripBuscarDatosClintes" columns="3">                                     
+                                    <p:outputLabel id="txtBuscarCliente" value="codigo cliente:  " style="font-weight: bold;"/>
+                                    <p:commandButton value="Buscar cliente ..." oncomplete="PF('dilogoCliente').show();"
+                                                     update=":frmCliente" style="margin-left: 20px;"
+                                                     disabled="#{!mbAbonos.enabled}"/>
+                                </h:panelGrid>
+
+
+                                <p:separator/>
+
+                                <h:panelGrid id="gripDatosClintes" columns="4">
+                                    <p:outputLabel value="Nombre" style="font-weight: bold;"/>
+                                    <p:outputLabel id="lblNombreCliente"  value="#{mbAbonos.cliente.nombre} #{mbAbonos.cliente.apellidos}"/>
+                                    <p:outputLabel value="N° Documento" style="font-weight: bold; margin-left: 30px;"/>
+                                    <p:outputLabel id="lblNumeroCliente"  value="#{mbAbonos.cliente.numeroDocumentoC}"/>
+
+                                    <p:outputLabel value="Direccion" style="font-weight: bold;"/>
+                                    <p:outputLabel  id="lblDireccionCliente" value="#{mbAbonos.cliente.direccion}" />
+                                    <p:outputLabel value="N° Telefono" style="font-weight: bold; margin-left: 30px;"/>
+                                    <p:outputLabel id="lblTelefonoCliente"  value="#{mbAbonos.cliente.telefono}"/>
+
+                                </h:panelGrid>
+
+                            </p:layoutUnit>
+
+
+                        </p:layout>
+                        <p:separator/>
+
+                        <p:dataTable id="tablaProductosFactura" var="item" value="#{mbAbonos.listaAbono}" 
+                                     editable="true" rowIndexVar="rowIndex">
+                            <p:ajax event="rowEdit" listener="#{mbAbonos.onRowEdit}" update=":frmAbonos:tablaProductosFactura :frmAbonos:gripTotalAbono"/>
+                            <p:ajax event="rowEditCancel" listener="#{mbAbonos.onRowEditCancel}"  update=":frmAbonos:tablaProductosFactura :frmAbonos:gripTotalAbono"/>
+
+
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{item.nombrepro}"/>
+                            </p:column>
+                            <p:column headerText="Cantidad" style="text-align: center;">
+                                <h:inputText value="#{item.cantidad}" style="text-align: center; width: 60px; color: #000;">
+                                    <p:ajax  event="keyup" update="out :frmAbonos:gripTotalAbono" listener="#{mbAbonos.calcular()}" />
+                                </h:inputText>                    
+                            </p:column>
+                            <p:column headerText="Precio" style="text-align: center;">
+                                <h:outputText value="#{item.precioventa}"/>
+                            </p:column>
+
+                            <p:column headerText="Total" style="text-align: center;">
+                                S./ 
+                                <h:outputText id="out" value="#{item.total}"/>
+                            </p:column>
+                            <p:column  style="text-align: center;">
+                                <p:commandButton value="Retirar " ajax="true" styleClass="btn btn-danger"  actionListener="#{mbAbonos.retirarListaVentaDetalle(item.nombrepro)}"
+                                                 update=":frmAbonos:tablaProductosFactura :frmAbonos:gripTotalAbono"/>
+                            </p:column>
+                            <br></br>
+
+                        </p:dataTable>
+                        <p:separator/>
+
+                        <h:panelGrid  id="gripTotalAbono" columns="6" style="font-size: 20px; margin: 0 auto;">
+                            Valor Productos  $
+                            <p:outputLabel value="#{mbAbonos.abonos.precioTotal}" style="margin-right: 80px;"/>
+
+                            <p:outputLabel value="Valor Abono"/>
+                            <p:inputText value="#{mbAbonos.montoAbono}" style="margin-left: 10px; width: 110px;" disabled="#{!mbAbonos.enabled}"/>
+
+
+                        </h:panelGrid>
+
+                        <p:separator/>
+                        <p:commandButton value="agregar producto" oncomplete="PF('dilogoProductos').show();" 
+                                         update=":frmMenu" style=" width: 200px; height: 45px;"
+                                         disabled="#{!mbAbonos.enabled}"/>
+                        <p:commandButton value="Registrar" actionListener="#{mbAbonos.generarFactura()}"      disabled="#{!mbAbonos.enabled}"                                      
+                                         ajax="false"  style=" width: 150px; height: 45px;" />
+
+                        <p:commandButton value="Imprimir" style=" width: 150px; height: 45px;" onclick="imprimir()" 
+                                         update=":frmAbonos :frmImprime:tbl" action="#{mbAbonos.limpiarAbonos()}" 
+                                         disabled="#{!mbAbonos.enabled}"/>         
+                        <p:commandButton value="Cancelar" action="#{mbAbonos.limpiarAbonos()}"      disabled="#{!mbAbonos.enabled}"
+                                         style=" width: 150px; height: 45px;"
+                                         update=":frmAbonos">
+                        </p:commandButton>
+                    </p:panel>
+
+
+
+                </h:form>
+
+                <!--dialogo para mstrar los clientes-->
+                <p:dialog id="dlgCliente" widgetVar="dilogoCliente"   modal="true" showEffect="explode" resizable="false" hideEffect="explode">
+                    <h:form id="frmCliente"  style="color: #000000">
+                        <p:dataTable id="tablaClientes" paginator="true" paginatorPosition="top" style="width: 650px;"
+                                     var="cl" value="#{mbAbonos.allClientes}" emptyMessage="No hay datos de clientes">
+
+                            <p:column headerText="codigo">
+                                <h:outputText value="#{cl.idcliente}"/>
+                            </p:column>
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{cl.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Apellido">
+                                <h:outputText value="#{cl.apellidos}"/>
+                            </p:column>
+                            <p:column headerText="Direccion">
+                                <h:outputText value="#{cl.direccion}"/>
+                            </p:column>
+                            <p:column headerText="seleccionar">
+                                <p:commandButton value="seleccionar" actionListener="#{mbAbonos.agregarDatosCliente(cl.idcliente)}"
+                                                 oncomplete="PF('dilogoCliente').hide();"
+                                                 update=":frmAbonos:gripDatosClintes">
+                                </p:commandButton>
+
+                            </p:column>
+
+                        </p:dataTable>
+                        <p:commandButton value="Cerrar" onclick="PF('dilogoCliente').hide();"/>
+                    </h:form>
+                </p:dialog>
+
+
+
+                <!--dialogo para mostar los productos-->
+                <p:dialog id="dlgProductos" widgetVar="dilogoProductos"   modal="true" showEffect="explode" resizable="false" hideEffect="explode">
+                    <h:form id="frmMenu"  style="color: #000000">
+                        <p:growl id="growl" showDetail="true" sticky="true" />  
+                        <label>Seleccione un tipo de producto</label>
+                        <h:selectOneMenu  value="#{mbAbonos.tipoProductos}" styleClass="form-control">
+                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Producto"/>
+                            <f:ajax event="change" render="@form"/>
+                            <f:selectItem itemValue="1" itemLabel="Ventana"/>
+                            <f:selectItem itemValue="2" itemLabel="Puertas"/>
+                            <f:selectItem itemValue="3" itemLabel="Vitrina"/>
+                            <f:selectItem itemValue="4" itemLabel="Vidrios"/>
+                        </h:selectOneMenu>
+
+                        <h:outputLabel rendered="#{mbAbonos.tipoProductos==3}">Seleccione un tipo de Vitrina</h:outputLabel>
+                        <h:selectOneMenu rendered="#{mbAbonos.tipoProductos==3}" value="#{mbAbonos.tipoVitrina}" styleClass="form-control" style="margin-top: 5px;">
+                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Vitrina"/>
+                            <f:selectItem itemValue="1" itemLabel="Vitrina CuartoCirculo 1 1/2"/>
+                            <f:selectItem itemValue="2" itemLabel="Vitrina Perfil Esquinero 1"/>
+                            <f:selectItem itemValue="3" itemLabel="Vitrina Pefil Esquinero 1 Larga"/>
+                        </h:selectOneMenu> 
+
+                        <h:outputLabel rendered="#{mbAbonos.tipoProductos==3}">Seleccione cantidad entrepaños</h:outputLabel>
+                        <h:selectOneMenu rendered="#{mbAbonos.tipoProductos==3}" value="#{mbAbonos.tipoEntrepanos}" styleClass="form-control" style="margin-top: 5px;">
+                            <f:selectItem itemValue="0" itemLabel="Seleccione Cantidad Entrepaños"/>
+                            <f:selectItem itemValue="1" itemLabel="3 entrepaños"/>
+                            <f:selectItem itemValue="2" itemLabel="4 entrepaños"/>
+                        </h:selectOneMenu>
+
+                        <h:outputLabel rendered="#{mbAbonos.tipoProductos==2}"> Seleccione un tipo de Puerta</h:outputLabel>
+                        <h:selectOneMenu id="tipoPuerta" rendered="#{mbAbonos.tipoProductos==2}" value="#{mbAbonos.tipoPuerta}" styleClass="form-control">
+                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Puerta"/>
+                            <f:selectItem itemValue="1" itemLabel="2 Aluminio T87 y Vidrio"/>
+                            <f:selectItem itemValue="2" itemLabel="3 Emtamborada T103"/>
+                            <f:selectItem itemValue="3" itemLabel="4 Aluminio T87 y Entamborado F06"/>
+                            <f:selectItem itemValue="4" itemLabel="5 Aluminio T103 y vidrio"/>
+                            <f:selectItem itemValue="5" itemLabel="6 Aluminio Alamo 1 1/2 y Vidrio"/>
+                        </h:selectOneMenu>
+                        <h:outputLabel rendered="#{mbAbonos.tipoProductos==2}"> Selecione un color de aluminio</h:outputLabel>
+                        <h:selectOneMenu  rendered="#{mbAbonos.tipoProductos==2}" value="#{mbAbonos.tipoAluminioPuerta}" styleClass="form-control">
+                                            
+                            <f:selectItem itemValue="0" itemLabel="Seleccione un color de Aluminio"/>
+                            <f:selectItem itemValue="1" itemLabel=" 2 Aluminio  natural"/>
+                            <f:selectItem itemValue="2" itemLabel=" 3 Aluminio  Anolo"/>     
+                            <f:selectItem itemValue="3" itemLabel=" 4 Aluminio  Colores"/>
+                        </h:selectOneMenu>
+
+                        <h:outputLabel rendered="#{mbAbonos.tipoProductos==1}"> Seleccione un tipo de Ventana</h:outputLabel>
+                        <h:selectOneMenu id="tipoVentana" value="#{mbAbonos.tipoVentana}" styleClass="form-control"
+                                         rendered="#{mbAbonos.tipoProductos==1}">
+                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Ventana"/>
+                            <f:selectItem itemValue="1" itemLabel="2 Cuerpos"/>
+                            <f:selectItem itemValue="2" itemLabel="3 Cuerpos"/>
+                            <f:selectItem itemValue="3" itemLabel="4 Cuerpos"/>
+                        </h:selectOneMenu>
+
+                        <h:outputLabel rendered="#{mbAbonos.tipoProductos==1}">Selecione un tipo de aluminio</h:outputLabel>
+                        <h:selectOneMenu  rendered="#{mbAbonos.tipoProductos==1}" value="#{mbAbonos.tipoAluminio}" styleClass="form-control">
+                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Aluminio"/>
+                            <f:selectItem itemValue="1" itemLabel="Aluminio 744 natural"/>
+                            <f:selectItem itemValue="2" itemLabel="Aluminio 5020 natural"/>
+                            <f:selectItem itemValue="3" itemLabel="Aluminio 8025 natural"/>
+                        </h:selectOneMenu>
+
+                        <h:selectOneMenu value="#{mbAbonos.idVidrio}" style="margin-top: 5px;" styleClass="form-control">
+                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de vidrio"/>
+                            <f:selectItems value="#{mbVidrios.all}" var="vidrio" itemLabel="#{vidrio.calibre}" itemValue="#{vidrio.idvidrios}"/>
+                        </h:selectOneMenu>
+
+                        <h:inputText id="alto"  disabled="#{mbAbonos.tipoProductos==0}" pa:placeholder="Digite el alto cm." value="#{mbAbonos.alto}" styleClass="form-control" style="margin-top: 5px;"></h:inputText>
+
+                        <h:inputText id="ancho" disabled="#{mbAbonos.tipoProductos==0}"  pa:placeholder="Digite el ancho cm." value="#{mbAbonos.ancho}" styleClass="form-control" style="margin-top: 5px;"></h:inputText>
+
+                        <h:inputText id="fondo" rendered="#{mbAbonos.tipoProductos==3}" 
+                                     pa:placeholder="Digite el fondo cm." value="#{mbAbonos.fondo}" styleClass="form-control" style="margin-top: 5px;"></h:inputText>
+
+                        <h:inputText id="ganancia" disabled="#{mbAbonos.tipoProductos==0}"  pa:placeholder="Digite ganancia %." value="#{mbAbonos.ganancia}" styleClass="form-control" style="margin-top: 5px;"></h:inputText>
+
+                        <h:inputText id="precio"   disabled="#{mbAbonos.tipoProductos==0}"  pa:placeholder="Precio trabajo $." value="#{mbAbonos.manObra}" styleClass="form-control" style="margin-top: 5px;"></h:inputText>
+
+                        <p:commandButton styleClass="btn col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px;" value="Agregar" actionListener="#{mbAbonos.agregarProducto()}"
+                                         update=":frmAbonos:tablaProductosFactura" oncomplete="PF('dilogoProductos').hide();">
+                        </p:commandButton>
+
+                        <!--   <p:commandButton value="Cerrar" onclick="PF('dilogoProductos').hide();" style="margin-top: 10px;"/>-->
+                    </h:form>
+                </p:dialog>
+
+                <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+
+                    <div id="imprimeDiv" class="panel-body" style="margin-top: 700px">
+                        <h:form  id="frmImprime" styleClass="form-group" >
+                            <p:dataTable id="tbl" var="lista" value="#{mbAbonos.listaFactura}">
+                                <f:facet   name="header">
+                                    <a>
+                                        <img class="logotipo" alt="Brand" src="/APPVIDIRERIA/resources/imagenes/imgVP.jpg" width="50" height="25" style="background: #fff;"></img>
+                                    </a>
+                                    <h3>Vidrios Palmira</h3> Alberto Jimenez Guzman.
+                                    NIT: 6'645.506-5.
+                                    <br></br>
+                                    Telefono:2726887  2726801  2871472.
+                                    Direccion: Carrera 35 # 28-45.
+
+
+                                </f:facet>
+
+                                <p:columnGroup  type="header">
+                                    <p:row>
+                                        <p:column colspan="1" headerText=" Factura de venta  N° #{mbAbonos.abonos.idabonos}" />
+                                        <p:column colspan="1" headerText="Fecha Venta N°: #{mbAbonos.convertFecha(mbAbonos.abonos.fecharegistro)}"/>
+                                        <p:column colspan="1" headerText="cliente: #{mbAbonos.abonos.cliente.nombre}" />
+                                        <p:column colspan="1" headerText="Empleado: #{mbAbonos.abonos.empleado.nombre}" />
+
+                                    </p:row>
+                                    <p:row>
+                                        <p:column headerText="Nombre producto" />
+                                        <p:column headerText="Precio unitario" />
+                                        <p:column headerText="Cantidad" />
+                                        <p:column headerText="Subtotal" />
+                                    </p:row>
+                                </p:columnGroup>
+
+                                <p:column headerText="Nombre producto">
+                                    <h:outputText value="#{lista.nombrepro}" />
+                                </p:column>
+                                <p:column  headerText="Precio de venta">
+                                    <h:outputText value="#{lista.precioventa}" />
+                                </p:column>
+                                <p:column  headerText="Cantidad">
+                                    <h:outputText value="#{lista.cantidad}" />
+                                </p:column>
+                                <p:column  headerText="Total">
+                                    <h:outputText value="#{lista.total}">
+                                        <f:convertNumber type="currency" currencySymbol="$" />
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:columnGroup type="footer">
+                                    <p:row>
+                                        <p:column footerText=""/>
+                                        <p:column footerText="total$ #{mbAbonos.abonos.precioTotal}"/>
+                                        <p:column footerText="Monto Abono$: #{mbAbonos.abonos.montoabono}" />
+                                        <p:column footerText="Saldo pendiente$:#{mbAbonos.abonos.saldofinal}" />
+
+                                    </p:row>
+                                </p:columnGroup>
+                            </p:dataTable>
+
+                        </h:form>
+                    </div>
+                </div>
+
+            </ui:define>
+
+            <ui:define name="bottom">
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

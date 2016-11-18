@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../layaut/TemplateAdmin.xhtml">
+
+            <ui:define name="top">
+                   <div class="container" style="margin-top: 30px;">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                            <div id="imprimeDiv">
+                            <p:outputLabel value="hola" rendered="false"></p:outputLabel>
+
+                            <div  class="panel panel-default div2">
+                                <div class="panel-heading " style="background-color: #FF3366;">Precio Cotizacion Vidrios</div>
+                                <div class="panel-body">
+                                    <h:form  styleClass="form-group" >
+                                        <h:outputText value="Nombre producto : #{mbCalcular.nombreProducto} ">
+                                        </h:outputText> 
+                                        <br></br>
+                                        <h:outputText value="  Precio Unitario $ :  #{mbCalcular.precioTotal}">
+                                        </h:outputText>
+                                        <br></br>
+                                      <h:outputText value="  Cantidad Vidrios :  #{mbCalcular.mensajeCanti}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="  Precio total $ :  #{mbCalcular.precioTotalCantidad}">
+                                            </h:outputText>
+                                            <br></br>
+
+                                    </h:form>
+                                </div>
+                            </div>
+
+                            
+                              
+  </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                            <div class="panel panel-default div2">
+                                <div class="panel-heading " style="background-color: #FF3366;">Realizar Cotizacion Vidrios</div>
+                                <div class="panel-body">
+                                    <h:form  styleClass="form-group" >
+                                        <p:growl id="growl" showDetail="False" sticky="False" /> 
+
+                                        <label>Digite el Alto</label>
+                                        <h:inputText styleClass="form-control" value="#{mbCalcular.alto}"></h:inputText>
+                                        <label class="bajar">Digite el Ancho</label>
+                                        <h:inputText  value="#{mbCalcular.ancho}" styleClass="form-control"></h:inputText>
+                                   
+                                        <label class="bajar">Digite el costo de la mano de obra</label>
+                                        <h:inputText value="#{mbCalcular.manObra}"  styleClass="form-control"></h:inputText>
+                                         <label class="bajar">Cantidad de Vidrios</label>
+                                         <h:inputText value="#{mbCalcular.canti}"  styleClass="form-control"></h:inputText>
+                                        <label class="bajar">Seleccione un tipo de vidrio</label>
+                                        <h:selectOneMenu value="#{mbCalcular.idVidrio}" styleClass="form-control">
+                                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de vidrio"/>
+                                            <f:selectItems value="#{mbVidrios.all}" var="vidrio" itemLabel="#{vidrio.calibre}" itemValue="#{vidrio.idvidrios}"/>
+                                        </h:selectOneMenu>
+                                        <label class="bajar">Seleccione Categoria</label>
+                                        <h:selectOneMenu value="#{mbCalcular.tipoVentana}" styleClass="form-control">
+                                            <f:selectItem itemValue="0" itemLabel="Seleccione Categoria"/>
+                                            <f:selectItem itemValue="1" itemLabel=""/>
+                                            <f:selectItem itemValue="2" itemLabel=""/>
+                                            <f:selectItem itemValue="3" itemLabel=""/>
+                                            <f:selectItem itemValue="4" itemLabel="Vidrio individual"/>
+
+                                        </h:selectOneMenu>
+                                    <!--    <label class="bajar">Seleccione un tipo de aluminio</label>
+                                        <h:selectOneMenu value="# {mbCalcular.tipoAluminio}" styleClass="form-control">
+                                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Aluminio"/>
+                                            <f:selectItem itemValue="1" itemLabel="Aluminio normal"/>
+                                            <f:selectItem itemValue="2" itemLabel="Aluminio 5020"/>
+                                            <f:selectItem itemValue="3" itemLabel="Aluminio 8025"/>
+
+
+                                        </h:selectOneMenu>-->
+                                        <h:commandButton styleClass="btn btn-info col-lg-6 col-md-6 col-sm-6 col-xs-6  bajar" value="Calcular" actionListener="#{mbCalcular.calcularCosto()}">
+                                        </h:commandButton>
+                                               <a onclick="imprimir()" class="btn btn-warning col-lg-6 col-md-6 col-sm-6 col-xs-6 bajar">Imprimir</a>
+
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </ui:define>
+
+            <ui:define name="bottom">
+           
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

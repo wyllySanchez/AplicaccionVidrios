@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/template.css"></link>
+        <link type="text/javascript" rel="stylesheet" href="#{request.contextPath}/resources/js/bootstrap.min.js"></link>
+        <h:outputScript name="imprime.js" library="js">        </h:outputScript>
+
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/bootstrap.min.css"></link>
+        <title>VIDRIERIA</title>
+    </h:head>
+
+    <h:body>
+        <div id="top">
+            <nav role="navigation" class="navbar navbar-inverse navbar-fixed-top " >
+                <div class="container-fluid" id="menu-kids">
+                    <div class="navbar-header">
+                        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle collapsed" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+
+                        <div id="navbarCollapse" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+
+                            <a href="#" class="navbar-brand">
+                                <img class="logotipo" alt="Brand" src="/APPVIDIRERIA/resources/imagenes/imgVP.jpg" width="50" height="25" style="background: #fff;"></img>
+
+                            </a>
+                            <ul class="nav navbar-nav">
+
+                                <li>
+                                    <p:outputLabel value="hola" rendered="false"></p:outputLabel>
+                                    <h:link outcome="/index.xhtml" value="Inicio">
+                                    </h:link>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ventas <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><h:link outcome="/administrador/ventas/facturaPrueba.xhtml" value="facturar prueba"/></li> 
+                                        <li><h:link outcome="/administrador/ventas/facturar.xhtml" value="facturar"/></li> 
+                                        <li><h:link outcome="/administrador/ventas/ventasFiltrados.xhtml" value="Listas Ventas"/></li>
+                                        <li><h:link outcome="/administrador/ventas/ventaNumeroDocumento.xhtml" value="Ventas por Documento"/></li> 
+                                        <li><h:link outcome="/administrador/ventas/listaVentasDetalle.xhtml" value="Detalle Ventas"/></li> 
+                                        <li><h:link outcome="/administrador/ventas/reporteFechaVentas.xhtml" value="reporte VentasFecha"/></li>
+
+
+
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Abonos <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+
+                                        <!--     <li><h:link outcome="/administrador/abonos/registrarAbonos.xhtml" value="Registrar AbonosPrimario"/></li>-->
+                                        <li><h:link outcome="/administrador/abonos/abonoGralPrueba.xhtml" value="Registrar Abonos Primarios"/></li>
+                                        <li><h:link outcome="/administrador/abonos/abonosSecundarios2.xhtml" value="Registrar AbonosSecundarios"/></li> 
+                                        <li><h:link outcome="/administrador/abonos/abonosFiltrado.xhtml" value="Lista AbonoPrimario"/></li> 
+                                        <li><h:link outcome="/administrador/abonos/abonoSecundarioFiltrado.xhtml" value=" lista AbonoSecundario "/></li> 
+                                        <li><h:link outcome="/administrador/abonos/reporteFechaAbonos.xhtml" value="reporte AbonosPrimario Fecha"/></li>
+                                        <li><h:link outcome="/administrador/abonos/reporteAbonoSecundario.xhtml" value="reporte AbonoSecundario Fecha"/></li>
+
+
+
+
+
+
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Empleados <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><h:link rendered="#{beanEmpleado.byCorreoElectronico.rol.idrol==1}" outcome="/administrador/empleados/registrarEmpleado.xhtml" value="Registrar Empleado"/></li>
+                                        <li><h:link rendered="#{beanEmpleado.byCorreoElectronico.rol.idrol==1}" outcome="/administrador/empleados/listaempleados.xhtml" value="lista Empleado"/></li> 
+                                        <li><h:link outcome="/administrador/empleados/empleadoFiltrado.xhtml" value="ListEmpleado Filtrado"/></li> 
+
+
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Clientes <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><h:link rendered="#{beanEmpleado.byCorreoElectronico.rol.idrol==1}" outcome="/administrador/clientes/registrarclientes.xhtml" value="Registrar Clientes"/></li>
+                                        <li><h:link rendered="#{beanEmpleado.byCorreoElectronico.rol.idrol==1}" outcome="/administrador/clientes/listaclientes.xhtml" value="lista Cambios Clientes"/></li>  
+                                        <li><h:link outcome="/administrador/clientes/clienteFiltrado.xhtml" value="lista Clientes Filtrado"/></li>         
+
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cotizaciones <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+
+                                        <li><h:link outcome="/administrador/cotizacion/cotizar.xhtml" value="Cotizar Ventanas"/></li> 
+                                        <li><h:link outcome="/administrador/cotizacion/cotizacionPrueba.xhtml" value="Cotizar Productos Generales "/></li> 
+                                        <li><h:link outcome="/administrador/cotizacion/cotizarVidrio.xhtml" value="Cotizar Vidrios"/></li> 
+                                        <li><h:link outcome="/administrador/cotizacion/cotizarPuertas.xhtml" value="cotizar Puertas"/></li> 
+                                        <li><h:link outcome="/administrador/cotizacion/cotizarVitrina.xhtml" value="cotizar Vitrinas"/></li> 
+                                        <!--  <li><h:link outcome="/administrador/cotizacion/cotizarReg.xhtml" value="cotizaciones Generales"/></li> -->
+                                        <li><h:link outcome="/administrador/cotizacion/listaCotizacion.xhtml" value="lista Cotizacion"/></li> 
+                                        <li><h:link outcome="/administrador/cotizacion/cotizacionNumeroDocumento.xhtml" value="Cotizacion por Documento"/></li> 
+                                        <li><h:link outcome="/administrador/cotizacion/listaCotizacionDetalle.xhtml" value="Detalle Cotizacion"/></li> 
+                                    </ul>
+                                </li>
+
+                                <li>                           
+                                    <h:link rendered="#{beanEmpleado.byCorreoElectronico.rol.idrol==1}" outcome="/administrador/materiales/materialRR.xhtml" value="Materiales">
+                                        <span class="glyphicon glyphicon-cog"></span>
+                                    </h:link>
+                                </li>
+
+                                <li>
+
+                                    <h:link  outcome="/administrador/productos/listaProductos.xhtml" value="Catalogo">
+                                    <span class="glyphicon glyphicon-cog"></span>
+                                    </h:link>
+                                </li>
+                                
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sueldos <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><h:link rendered="#{beanEmpleado.byCorreoElectronico.rol.idrol==1}" outcome="/administrador/sueldos/registrarSueldos.xhtml" value="Registrar Sueldos"/></li>
+                                    <!--   <li><h:link rendered="# {beanEmpleado.byCorreoElectronico.rol.idrol==1}" outcome="/administrador/sueldos/listaSueldos.xhtml" value="lista Sueldos"/></li>  --> 
+                                    <li><h:link outcome="/administrador/sueldos/sueldoFiltrado.xhtml" value="Sueldos Filtrados"/></li>  
+                                    <li><h:link outcome="/administrador/sueldos/reporteSueldoFechas.xhtml" value="Sueldos Fechas"/></li> 
+                                    <li><h:link outcome="/administrador/sueldos/sueldoNumeroDoc.xhtml" value="Sueldo por Documento"/></li>         
+
+
+
+                                </ul>
+                            </li>
+
+
+
+                            <ul class="nav navbar-nav navbar-right" >
+                                <h:form>
+                                    <p:outputLabel style="color: white;" value=" #{beanEmpleado.byCorreoElectronico.nombre} #{beanEmpleado.byCorreoElectronico.apellidos}"/>
+
+                                    <h:commandLink style="margin-right: 5px;"  action="#{mbLogin.cerrarSesion()}"   class="btn btn-danger navbar-btn" >Salir</h:commandLink>
+
+                                </h:form>
+                            </ul>
+
+
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+
+
+
+
+            <ui:insert name="top"></ui:insert>
+
+
+            <div id="content" class="center_content">
+                <ui:insert name="content">
+
+
+
+                </ui:insert>
+            </div>
+
+            <ui:insert name="bottom"></ui:insert>
+
+
+            <!-- Latest compiled and minified JavaScript -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        </div>
+
+    </h:body>
+
+</html>

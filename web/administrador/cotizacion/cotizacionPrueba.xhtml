@@ -1,0 +1,290 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+            xmlns:p="http://primefaces.org/ui"
+            xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../layaut/TemplateAdmin.xhtml">
+
+            <ui:define name="top">
+                <h:form>
+                    <h:panelGrid  width="900px" style="margin: 0 auto; background-color: #045491">
+                        <p:commandButton value="Realizar Nueva Cotizacion" 
+                                         update=":frmCotizacion" action="#{mbCotizacion.enebleButton()}"
+                                         style="width: 100%; height: 50px;"/> 
+                    </h:panelGrid>
+                </h:form>
+                <h:form id="frmCotizacion">
+                    <p:growl id="mensajeGeneral" showDetail="true" autoUpdate="true" life="3000" />
+                    <p:panel header=""  style="width: 900px;text-align: center; margin: 0 auto;" >
+                        <p:layout id="capaDatosClientesCotizacion" style="width: 100%; height: 150px;">
+                            <p:layoutUnit id="DatosCliente" position="center" style="padding: 5px; 
+                                          font-size: 14px; text-align: justify" size="250">
+
+                                  <h:panelGrid id="gripBuscarDatosClintes" columns="3">                                     
+                                    <p:outputLabel id="txtBuscarCliente" value="Codigo Cliente  " style="font-weight: bold;"/>
+
+                                    <p:commandButton value="Buscar cliente ..." oncomplete="PF('dilogoCliente').show();"
+                                                     update=":frmCliente" style="margin-left: 20px;"
+                                                     disabled="#{!mbCotizacion.enabled}"/>
+                                  </h:panelGrid>
+                     
+                                <p:separator/>
+
+                                <h:panelGrid id="gripDatosClintes" columns="4">
+                                    <p:outputLabel value="Nombre" style="font-weight: bold;"/>
+                                    <p:outputLabel id="lblNombreCliente"  value="#{mbCotizacion.cliente.nombre} #{mbCotizacion.cliente.apellidos}"/>
+                                    <p:outputLabel value="N° Documento" style="font-weight: bold; margin-left: 30px;"/>
+                                    <p:outputLabel id="lblNumeroCliente"  value="#{mbCotizacion.cliente.numeroDocumentoC}"/>
+                              
+                                    <p:outputLabel value="Direccion" style="font-weight: bold;"/>
+                                    <p:outputLabel  id="lblDireccionCliente" value="#{mbCotizacion.cliente.direccion}" />
+                                    <p:outputLabel value="N° Telefono" style="font-weight: bold; margin-left: 30px;"/>
+                                    <p:outputLabel id="lblTelefonoCliente"  value="#{mbCotizacion.cliente.telefono}"/>
+
+                                </h:panelGrid>
+                         
+                            </p:layoutUnit>
+
+
+                        </p:layout>
+                        <p:separator/>
+                     
+            <p:dataTable id="tablaProductosFactura" var="item" value="#{mbCotizacion.listaCotizacion}" 
+                         editable="true" rowIndexVar="rowIndex" rows="8">
+                            <p:ajax event="rowEdit" listener="#{mbCotizacion.onRowEdit}" update=":frmCotizacion:tablaProductosFactura :frmCotizacion:gripTotalCotizacion"/>
+                            <p:ajax event="rowEditCancel" listener="#{mbCotizacion.onRowEditCancel}"  update=":frmCotizacion:tablaProductosFactura :frmCotizacion:gripTotalCotizacion"/>
+
+
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{item.nombrepro}"/>
+                            </p:column>
+                            <p:column headerText="Cantidad" style="text-align: center;">
+                                <h:inputText value="#{item.cantidad}" style="text-align: center; width: 60px; color: #000;">
+                                    <p:ajax  event="keyup" update="out :frmCotizacion:gripTotalCotizacion" listener="#{mbCotizacion.calcular()}" />
+                                </h:inputText>                    
+                            </p:column>
+                            <p:column headerText="Precio" style="text-align: center;">
+                                <h:outputText value="#{item.precioventa}"/>
+                            </p:column>
+
+                            <p:column headerText="Total" style="text-align: center;">
+                                S./ 
+                                <h:outputText id="out" value="#{item.total}"/>
+                            </p:column>
+                            <p:column  style="text-align: center;">
+                                <p:commandButton value="Retirar " ajax="true" styleClass="btn btn-danger"  actionListener="#{mbCotizacion.retirarListaVentaDetalle(item.nombrepro)}"
+                                                 update=":frmCotizacion:tablaProductosFactura :frmCotizacion:gripTotalCotizacion"/>
+                            </p:column>
+                            <br></br>
+
+                        </p:dataTable>
+                        <p:separator/>
+
+                        <h:panelGrid  id="gripTotalCotizacion" columns="2" style="font-size: 24px; margin: 0 auto;">
+                            Total Cotizacion  $
+                            <p:outputLabel value="#{mbCotizacion.cotizacionT.preciototal}"/>
+                        </h:panelGrid>
+
+                        <p:separator/>
+                          <p:commandButton value="Agregar productos" oncomplete="PF('dilogoProductos').show();" style=" width: 200px; height: 45px;"
+                                             update=":frmMenu"
+                                             disabled="#{!mbCotizacion.enabled}"/>
+                        <p:commandButton value="Registrar" actionListener="#{mbCotizacion.generarCotizacion()}"                                         
+                                         style=" width: 150px; height: 45px;"      disabled="#{!mbCotizacion.enabled}" ajax="false"/>
+                                  
+
+                        <p:commandButton value="Imprimr" style=" width: 150px; height: 45px;" onclick="imprimir()" 
+                                         update=":frmCotizacion :frmImprime:tbl" action="#{mbCotizacion.limpiarCotiacion()}" 
+                                         disabled="#{!mbCotizacion.enabled}"/>
+                        <p:commandButton value="Cancelar" action="#{mbCotizacion.limpiarCotiacion()}"      disabled="#{!mbCotizacion.enabled}"
+                                         style=" width: 150px; height: 45px;"
+                                         update=":frmCotizacion">
+                        </p:commandButton>
+                    </p:panel>
+            
+
+
+                </h:form>
+
+                <!--dialogo para mstrar los clientes-->
+                <p:dialog id="dlgCliente" widgetVar="dilogoCliente"   modal="true" showEffect="explode" resizable="false" hideEffect="explode">
+                    <h:form id="frmCliente"  style="color: #000000">
+                        <p:dataTable id="tablaClientes" paginator="true" paginatorPosition="top" style="width: 650px;"
+                                     var="cl" value="#{mbCotizacion.allClientes}" emptyMessage="No hay datos de clientes">
+
+                            <p:column headerText="codigo">
+                                <h:outputText value="#{cl.idcliente}"/>
+                            </p:column>
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{cl.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Apellido">
+                                <h:outputText value="#{cl.apellidos}"/>
+                            </p:column>
+                            <p:column headerText="Direccion">
+                                <h:outputText value="#{cl.direccion}"/>
+                            </p:column>
+                            <p:column headerText="seleccionar">
+                                <p:commandButton value="seleccionar" actionListener="#{mbCotizacion.agregarDatosCliente(cl.idcliente)}"
+                                                 oncomplete="PF('dilogoCliente').hide();"
+                                                 update=":frmCotizacion:gripDatosClintes">
+                                </p:commandButton>
+
+                            </p:column>
+
+                        </p:dataTable>
+                        <p:commandButton value="Cerrar" onclick="PF('dilogoCliente').hide();"/>
+                    </h:form>
+                </p:dialog>
+                
+                                 
+
+
+                <!--dialogo para mostar los productos-->
+                <p:dialog id="dlgProductos" widgetVar="dilogoProductos"   modal="true" showEffect="explode" resizable="false" hideEffect="explode">
+                    <h:form id="frmMenu"  style="color: #000000">
+                        <p:growl id="growl" showDetail="true" sticky="true" />  
+
+                        <h:selectOneMenu value="#{mbCotizacion.productoTipo}" >
+                            <f:ajax event="valueChange" execute="@this" render="alto ancho fondo ganancia precio"></f:ajax>
+                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Producto"/>
+                            <f:selectItem itemValue="1" itemLabel="ventana o Vidrio"/>
+                            <f:selectItem itemValue="2" itemLabel="Puerta 2 Aluminio T87 y Vidrio"/>
+                            <f:selectItem itemValue="4" itemLabel="Puerta 3 Emtamborada T103"/>
+                            <f:selectItem itemValue="5" itemLabel="Puerta 4 Aluminio T87 y Entamborado F06"/>
+                            <f:selectItem itemValue="6" itemLabel="Puerta 5 Aluminio T103 y vidrio"/>
+                            <f:selectItem itemValue="3" itemLabel="Vitrina CuartoCirculo 1 1/2"/>
+                            <f:selectItem itemValue="7" itemLabel="Puerta 6 Aluminio T103 Con Alamo 1 1/2 y Vidrio "/>
+                            <f:selectItem itemValue="8" itemLabel="Vitrina Esquinero de 1 con Tubular de 1"/>
+                            <f:selectItem itemValue="9" itemLabel="Vitrina Esquinero de 1 con Tubular de 1 de mas de 135cm"/>
+                        </h:selectOneMenu>
+                        <h:inputText id="alto"  disabled="#{mbCotizacion.productoTipo=='0'}" pa:placeholder="Digite el alto cm." value="#{mbCotizacion.alto}"></h:inputText><br></br>
+                        <h:inputText id="ancho" disabled="#{mbCotizacion.productoTipo=='0'}"  pa:placeholder="Digite el ancho cm." value="#{mbCotizacion.ancho}" style="margin-top: 10px;"></h:inputText>
+                        <h:inputText id="fondo" disabled="#{mbCotizacion.productoTipo=='0' || mbCotizacion.productoTipo=='1' || mbCotizacion.productoTipo=='2' || mbCotizacion.productoTipo=='4'  || mbCotizacion.productoTipo=='5'  || mbCotizacion.productoTipo=='6'  || mbCotizacion.productoTipo=='7'}" 
+                                     pa:placeholder="Digite el fondo cm." value="#{mbCotizacion.fondo}" style="margin-top: 10px;"></h:inputText>
+
+                        <h:inputText id="ganancia" disabled="#{mbCotizacion.productoTipo=='0'}"  pa:placeholder="Digite ganancia %." value="#{mbCotizacion.ganancia}" style="margin-top: 10px;"></h:inputText><br></br>
+                        <h:inputText id="precio"   disabled="#{mbCotizacion.productoTipo=='0'}"  pa:placeholder="Precio trabajo $." value="#{mbCotizacion.manObra}" style="margin-top: 10px;"></h:inputText>
+
+
+
+                        <h:selectOneMenu value="#{mbCotizacion.tipoVentana}" style="margin-top: 10px;">
+                            <f:selectItem itemValue="0" itemLabel="Seleccione un Modelo"/>
+                            <f:selectItem itemValue="1" itemLabel="ventana 2 Cuerpos"/>
+                            <f:selectItem itemValue="2" itemLabel="ventana 3 Cuerpos"/>
+                            <f:selectItem itemValue="3" itemLabel="ventana 4 Cuerpos"/>
+                            <f:selectItem itemValue="4" itemLabel="Vidrio individual"/>
+
+                        </h:selectOneMenu>
+                        <h:selectOneMenu value="#{mbCotizacion.tipoAluminio}" style="margin-top: 10px;" >
+                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Aluminio"/>
+                            <f:selectItem itemValue="1" itemLabel="Aluminio 744"/>
+                            <f:selectItem itemValue="2" itemLabel="Aluminio 5020"/>
+                            <f:selectItem itemValue="3" itemLabel="Aluminio 8025"/>
+
+
+                        </h:selectOneMenu><br></br>
+                        <h:selectOneMenu value="#{mbCotizacion.idVidrio}" style="margin-top: 10px;">
+                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de vidrio"/>
+                            <f:selectItems value="#{mbVidrios.all}" var="vidrio" itemLabel="#{vidrio.calibre}" itemValue="#{vidrio.idvidrios}"/>
+                        </h:selectOneMenu>
+                        <h:selectOneMenu value="#{mbCotizacion.tipoEntrepanos}" style="margin-top: 10px;" >
+                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Vitrina"/>
+                            <f:selectItem itemValue="1" itemLabel="3 entrepaños"/>
+                            <f:selectItem itemValue="2" itemLabel="4 entrepaños"/>
+                        </h:selectOneMenu>
+                        <br></br>
+                        <p:commandButton styleClass="btn col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px;" value="Agregar" actionListener="#{mbCotizacion.agregarProducto()}"
+                                         update=":frmCotizacion:tablaProductosFactura" oncomplete="PF('dilogoProductos').hide();">
+                        </p:commandButton>
+                        <p:commandButton value="Cerrar" onclick="PF('dilogoProductos').hide();" style="margin-top: 10px;"/>
+                    </h:form>
+                </p:dialog>
+                
+                
+                
+                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+
+                        <div id="imprimeDiv" class="panel-body" style="margin-top: 700px">
+                            <h:form id="frmImprime" styleClass="form-group" >
+                                <p:dataTable id="tbl" var="lista" value="#{mbCotizacion.listaVentana}">
+                                          <f:facet   name="header">
+                                    <a>
+                                            <img class="logotipo" alt="Brand" src="/APPVIDIRERIA/resources/imagenes/imgVP.jpg" width="50" height="25" style="background: #fff;"></img>
+                                        </a>
+                                       <h3>Vidrios Palmira</h3> Alberto Jimenez Guzman.
+                                        NIT: 6'645.506-5.
+                                        <br></br>
+                                        Telefono:2726887  2726801  2871472.
+                                        Direccion: Carrera 35 # 28-45.
+
+
+                                    </f:facet>
+
+                                    <p:columnGroup  type="header">
+                                        <p:row>
+                                            <p:column colspan="1" headerText="Cotizacion N° #{mbCotizacion.cotizacionT.idcotizacion}" />
+                                            <p:column colspan="1" headerText="Fecha: #{mbCotizacion.convertFecha(mbCotizacion.cotizacionT.fechacotizacion)}"/>
+                                            <p:column colspan="1" headerText="cliente: #{mbCotizacion.cotizacionT.cliente.nombre} #{mbCotizacion.cotizacionT.cliente.apellidos}" />
+                                            <p:column colspan="1" headerText="Empleado: #{mbCotizacion.cotizacionT.empleado.nombre} #{mbCotizacion.cotizacionT.empleado.apellidos}" />
+
+
+                                        </p:row>
+                                        <p:row>
+                                            <p:column headerText="Nombre producto" />
+                                            <p:column headerText="Precio unitario" />
+                                            <p:column headerText="Cantidad" />
+                                            <p:column headerText="Subtotal" />
+                                        </p:row>
+                                    </p:columnGroup>
+
+                                    <p:column headerText="Nombre producto">
+                                        <h:outputText value="#{lista.nombrepro}" />
+                                    </p:column>
+                                    <p:column  headerText="Precio de venta">
+                                        <h:outputText value="#{lista.precioventa}" />
+                                    </p:column>
+                                    <p:column  headerText="Cantidad">
+                                        <h:outputText value="#{lista.cantidad}" />
+                                    </p:column>
+                                    <p:column  headerText="Total">
+                                        <h:outputText value="#{lista.total}">
+                                            <f:convertNumber type="currency" currencySymbol="$" />
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:columnGroup type="footer">
+                                        <p:row>
+                                            <p:column footerText="Resolucion DIAN:1111 de 2015-02-10 " />
+                                            <p:column footerText=" Numeracion de :20000 al 50000"/>
+                                            <p:column footerText=""/>
+                                            <p:column footerText="Total $: #{mbCotizacion.cotizacionT.preciototal}"/>
+
+                                        </p:row>
+                                    </p:columnGroup>
+                                </p:dataTable>
+
+                            </h:form>
+
+
+                        </div>
+
+
+                    </div>
+
+            </ui:define>
+
+            <ui:define name="bottom">
+        
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

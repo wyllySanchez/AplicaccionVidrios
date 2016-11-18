@@ -1,0 +1,260 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pa="http://xmlns.jcp.org/jsf/passthrough">
+
+    <body>
+
+        <ui:composition template="./../../layaut/TemplateAdmin.xhtml">
+
+            <ui:define name="top">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                        <center> <h1 style="color: #fff;">Ventas.</h1></center>
+                        <hr></hr>
+                        <div class="panel-body">
+                            <h:form  styleClass="form-group" >
+                                <p:growl id="growl" showDetail="true" sticky="true" />  
+
+                                <h:selectOneMenu value="#{factura.productoTipo}" styleClass="input-sm col-sm-6 derecha" >
+                                    <f:ajax event="valueChange" execute="@this" render="alto ancho fondo ganancia precio"></f:ajax>
+                                    <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Producto"/>
+                                    <f:selectItem itemValue="1" itemLabel="ventana"/>
+                                    <f:selectItem itemValue="2" itemLabel="Puerta 2 Aluminio T87 y Vidrio"/>
+                                    <f:selectItem itemValue="4" itemLabel="Puerta 3 Emtamborada T103"/>
+                                    <f:selectItem itemValue="5" itemLabel="Puerta 4 Aluminio T87 y Entamborado F06"/>
+                                    <f:selectItem itemValue="6" itemLabel="Puerta 5 Aluminio T103 y vidrio"/>
+                                    <f:selectItem itemValue="3" itemLabel="Vitrina CuartoCirculo 1 1/2"/>
+                                    <f:selectItem itemValue="7" itemLabel="Puerta 6 Aluminio T103 Con Alamo 1 1/2 y Vidrio "/>
+                                    <f:selectItem itemValue="8" itemLabel="Vitrina Esquinero de 1 con Tubular de 1"/>
+                                    <f:selectItem itemValue="9" itemLabel="Vitrina Esquinero de 1 con Tubular de 1 de mas de 135cm"/>
+                                </h:selectOneMenu>
+                                <h:inputText id="alto"  disabled="#{factura.productoTipo=='0'}" styleClass="input-sm col-sm-2 derecha" pa:placeholder="Digite el alto cm." value="#{factura.alto}"></h:inputText>
+                                <h:inputText id="ancho" disabled="#{factura.productoTipo=='0'}" styleClass="input-sm col-sm-2 derecha" pa:placeholder="Digite el ancho cm." value="#{factura.ancho}"></h:inputText>
+                                <h:inputText id="fondo" disabled="#{factura.productoTipo=='0' || factura.productoTipo=='1' || factura.productoTipo=='2' || factura.productoTipo=='4'  || factura.productoTipo=='5'  || factura.productoTipo=='6'  || factura.productoTipo=='7'}" 
+                                             styleClass="input-sm col-sm-2 derecha" pa:placeholder="Digite el fondo cm." value="#{factura.fondo}"></h:inputText>
+
+                                <h:inputText id="ganancia" disabled="#{factura.productoTipo=='0'}" styleClass="input-sm col-sm-4 derecha" pa:placeholder="Digite ganancia %." value="#{factura.ganancia}" style="margin-top: 10px;"></h:inputText>
+                                <h:inputText id="precio"   disabled="#{factura.productoTipo=='0'}" styleClass="input-sm col-sm-4 derecha" pa:placeholder="Precio trabajo $." value="#{factura.manObra}" style="margin-top: 10px;"></h:inputText>
+
+
+
+                                <h:selectOneMenu value="#{factura.tipoVentana}" styleClass="input-sm col-sm-4 derecha" style="margin-top: 10px;">
+                                    <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de ventana"/>
+                                    <f:selectItem itemValue="1" itemLabel="ventana 2 Cuerpos"/>
+                                    <f:selectItem itemValue="2" itemLabel="ventana 3 Cuerpos"/>
+                                    <f:selectItem itemValue="3" itemLabel="ventana 4 Cuerpos"/>
+                                    <f:selectItem itemValue="4" itemLabel="Vidrio individual"/>
+
+                                </h:selectOneMenu>
+                                <h:selectOneMenu value="#{factura.tipoAluminio}" styleClass="input-sm col-sm-4 derecha" style="margin-top: 10px;">
+                                    <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Aluminio"/>
+                                    <f:selectItem itemValue="1" itemLabel="Aluminio 744"/>
+                                    <f:selectItem itemValue="2" itemLabel="Aluminio 5020"/>
+                                    <f:selectItem itemValue="3" itemLabel="Aluminio 8025"/>
+
+
+                                </h:selectOneMenu>
+                                <h:selectOneMenu value="#{factura.idVidrio}" styleClass="input-sm derecha col-sm-4" style="margin-top: 10px;">
+                                    <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de vidrio"/>
+                                    <f:selectItems value="#{mbVidrios.all}" var="vidrio" itemLabel="#{vidrio.calibre}" itemValue="#{vidrio.idvidrios}"/>
+                                </h:selectOneMenu>
+                                <h:selectOneMenu value="#{factura.tipoEntrepanos}" styleClass="input-sm derecha col-sm-4" style="margin-top: 10px;">
+                                    <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Vitrina"/>
+                                    <f:selectItem itemValue="1" itemLabel="3 entrepaños"/>
+                                    <f:selectItem itemValue="2" itemLabel="4 entrepaños"/>
+                                </h:selectOneMenu>
+                                <br></br>
+                                <br></br>
+                                <h:commandButton styleClass="btn btn-primary col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px;" value="Agregar" actionListener="#{factura.agregarProducto()}">
+                                </h:commandButton>
+                            </h:form>
+
+
+                        </div>
+                    </div> 
+
+
+
+                    <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                        <br></br>
+                        <h:form id="frmRealizarVentas">
+                            <p:growl id="mensajeGeneral" showDetail="true"/>
+
+                            <h:dataTable id="tablaListaProductosVenta" value="#{factura.listaVentana}" var="item" styleClass="table table-condensed" >
+
+
+                                <p:column headerText="Nombre">
+                                    <h:outputText value="#{item.nombrepro}"/>
+                                </p:column>
+                                <p:column headerText="Cantidad" style="text-align: center;">
+                                    <h:inputText value="#{item.cantidad}" style="text-align: center; width: 60px; ">
+                                        <p:ajax  event="keyup" update="out total" listener="#{factura.calcular()}" />
+                                    </h:inputText>                    
+                                </p:column>
+                                <p:column headerText="Precio" style="text-align: center;">
+                                    <h:outputText value="#{item.precioventa}"/>
+                                </p:column>
+
+                                <p:column headerText="Total" style="text-align: center;">
+                                    S./ 
+                                    <h:outputText id="out" value="#{item.total}"/>
+                                </p:column>
+                                <p:column  style="text-align: center;">
+                                    <p:commandButton value="Retirar " ajax="true" styleClass="btn btn-danger"  actionListener="#{factura.retirarListaVentaDetalle(item.nombrepro)}"/>
+                                </p:column>
+                                <br></br>
+                                <f:facet name="footer">
+                                    <h:outputText value="Subtotal" style="box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7);padding: 7px; margin-left: 465px; margin-top: 10px; "/>  
+                                    <h:outputText id="sub" value="#{factura.factura.subtotal}" style="box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7);padding: 7px;"/>  
+                                    <br></br>
+                                    <br></br>
+
+                                    <h:outputText value="IVA16%" style="box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7);padding: 7px; margin-left: 465px; "/>  
+                                    <h:outputText id="iva" value="#{factura.factura.iva}" style="box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7);padding: 7px;" />  
+                                    <br></br>
+                                    <br></br>
+
+
+                                    <h:outputText value="Total" style="box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7);padding: 7px;margin-left: 465px;"/>  
+                                    <h:outputText id="total" value="#{factura.factura.preciototal}" style="box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7);padding: 7px; "/>  
+
+                                </f:facet>
+                            </h:dataTable>
+                            <p:autoComplete styleClass="input-sm derecha col-sm-5" placeholder="Documento del cliente" value="#{factura.idCliente}" completeMethod="#{factura.completeText}" />
+                            <h:selectOneMenu value="#{factura.idEmpleado}" styleClass="input-sm derecha col-sm-5">
+                                <f:selectItem itemValue="0" itemLabel="Seleccione un Empleado"/>
+                                <f:selectItems value="#{beanEmpleado.all}" var="empleado" itemLabel="#{empleado.nombre}" itemValue="#{empleado.idempleado}"/>
+                            </h:selectOneMenu>
+                            <br></br>
+                            <br></br>
+                            <h:commandButton styleClass="btn btn-success col-lg-6 col-md-6 col-sm-6 col-xs-6 bajar" value="Generar Factura" actionListener="#{factura.generarFactura()}">
+                            </h:commandButton>
+                            <a onclick="imprimir()" class="btn btn-warning col-lg-6 col-md-6 col-sm-6 col-xs-6 bajar">Imprimir</a>
+
+
+                            <!-- boton para calcular devueltas
+                            <h:commandButton styleClass="btn btn-primary col-lg-4 col-md-4 col-sm-4 col-xs-4 bajar" value="Calcular devueltas" onclick="PF('wdialogo').show();"/>
+
+                            -->
+
+                        </h:form>
+
+                        <!--  <h4><a href="http://localhost:8080/ProyVidrios/faces/administrador/impresiones/imprimirVenta.xhtml" style="color:#c9302c;">Imprimir Factura</a></h4>-->
+
+
+
+
+
+
+                    </div>
+
+
+
+                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+
+                        <div id="imprimeDiv" class="panel-body">
+                            <h:form  styleClass="form-group" >
+                                <p:dataTable id="tbl" var="lista" value="#{factura.listaFactura}">
+                                    <f:facet   name="header">
+                                        <a>
+                                            <img class="logotipo" alt="Brand" src="/APPVIDIRERIA/resources/imagenes/imgVP.jpg" width="50" height="25" style="background: #fff;"></img>
+                                        </a>
+                                        <h3>Vidrios Palmira</h3> Alberto Jimenez Guzman.
+                                        NIT: 6'645.506-5.
+                                        <br></br>
+                                        Telefono:2726887  2726801  2871472.
+                                        Direccion: Carrera 35 # 28-45.
+
+
+                                    </f:facet>
+
+                                    <p:columnGroup  type="header">
+                                        <p:row>
+                                            <p:column colspan="1" headerText="cliente: #{factura.factura.cliente.nombre} #{factura.factura.cliente.apellidos}" />
+                                            <p:column colspan="1" headerText="Empleado: #{factura.factura.empleado.nombre} #{factura.factura.empleado.apellidos}" />
+                                            <p:column colspan="1" headerText=" Factura de venta  N° #{factura.factura.idfacturas}" />
+                                            <p:column colspan="1" headerText="Fecha: #{factura.factura.fechaventa}"/>
+
+                                        </p:row>
+                                        <p:row>
+                                            <p:column headerText="Nombre producto" />
+                                            <p:column headerText="Precio unitario" />
+                                            <p:column headerText="Cantidad" />
+                                            <p:column headerText="Subtotal" />
+                                        </p:row>
+                                    </p:columnGroup>
+
+                                    <p:column headerText="Nombre producto">
+                                        <h:outputText value="#{lista.nombrepro}" />
+                                    </p:column>
+                                    <p:column  headerText="Precio de venta">
+                                        <h:outputText value="#{lista.precioventa}" />
+                                    </p:column>
+                                    <p:column  headerText="Cantidad">
+                                        <h:outputText value="#{lista.cantidad}" />
+                                    </p:column>
+                                    <p:column  headerText="Total">
+                                        <h:outputText value="#{lista.total}">
+                                            <f:convertNumber type="currency" currencySymbol="$" />
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:columnGroup type="footer">
+                                        <p:row>
+                                            <p:column footerText="Resolucion DIAN:1111 de 2015-02-10 " />
+                                            <p:column footerText=" Numeracion de :20000 al 50000"/>
+                                            <p:column footerText=""/>
+                                            <p:column footerText="Toatl$:#{factura.factura.preciototal}"/>
+
+                                        </p:row>
+                                    </p:columnGroup>
+
+                                </p:dataTable>
+
+                            </h:form>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div>
+                        <h:form>
+                            <p:dialog header="Devueltas" widgetVar="wdialogo" resizable="false" modal="true" hideEffect="explode" style="background-color: #FFFF99;">                            
+
+                                <h:panelGrid id="panelDetalleUsuario" columns="2">
+                                    <h:outputLabel value="Total Venta"/>
+                                    <h:outputText value="#{factura.factura.preciototal}"/>
+                                    <h:outputLabel value="Dinero Efecivo"/>
+                                    <h:inputText value="#{factura.montoDinero}">
+                                        <p:ajax  event="keyup" update="outi" listener="#{factura.calcularDevueltas(monto, precioVenta)}" />
+
+                                    </h:inputText>
+                                    <h:outputLabel value="Saldo Dinero"/>
+                                    <h:inputText  id="outi" value="#{factura.saldoDevuelta}"/>
+                                </h:panelGrid>
+
+                            </p:dialog>
+                        </h:form>
+                    </div>
+
+
+                </div>
+            </ui:define>
+
+            <ui:define name="bottom">
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2/11/2016 10:27:34 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Abonosecundario" table="abonosecundario" catalog="vidrieria" optimistic-lock="version">
+        <id name="idabonosecun" type="java.lang.Integer">
+            <column name="idabonosecun" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="abonos" class="Pojos.Abonos" fetch="select">
+            <column name="idabonos" not-null="true" />
+        </many-to-one>
+        <many-to-one name="empleado" class="Pojos.Empleado" fetch="select">
+            <column name="idempleado" not-null="true" />
+        </many-to-one>
+        <property name="valorAbono" type="long">
+            <column name="valorAbono" not-null="true" />
+        </property>
+        <property name="saldoTotaL" type="java.lang.Long">
+            <column name="saldoTotaL" />
+        </property>
+        <property name="fechaRegistro" type="timestamp">
+            <column name="fechaRegistro" length="19" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

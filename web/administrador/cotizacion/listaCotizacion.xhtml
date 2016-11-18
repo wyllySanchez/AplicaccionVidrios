@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../layaut/TemplateAdmin.xhtml">
+
+            <ui:define name="top">
+                <div class="container">
+                    <h:form id="frmListaCotizacion">
+                        <p:growl id="mensajeGeneral" showDetail="true" sticky="false" />
+
+                        <p:outputLabel value="hola" rendered="false"></p:outputLabel>
+
+                        <p:dataTable id="tablaListaProductos" var="item" value="#{mbCotizacion.all}" paginator="true" rows="8" selection="#{mbCotizacion.cotizacionT}" selectionMode="single" rowKey="#{item.idcotizacion}" filteredValue="#{mbCotizacion.listaCotizacionFiltrado}">
+
+
+                            <f:facet name="header">
+                                <h2>Lista de Cotizaciones</h2>
+                            </f:facet>
+                            <p:column headerText="Codigo" >
+                                <h:outputText value="#{item.idcotizacion}"/>
+                            </p:column>
+
+                            <p:column headerText="Empleado" >
+                                <h:outputText value="#{beanEmpleado.getById(item.empleado.idempleado).getNombre()}"/>
+
+                            </p:column>
+                            <p:column headerText="Cliente">
+                                <h:outputText value="#{mbCliente.getById(item.cliente.idcliente).getNombre()}"/>
+
+                            </p:column>
+                            <p:column headerText="Bubtotal" >
+                                <h:outputText value="#{item.subtotal}"/>
+                            </p:column>
+                            <p:column headerText="Iva ">
+                                <h:outputText value="#{item.iva}"/>
+                            </p:column>
+
+
+                            <p:column headerText="PrecioTotal" >
+                                <h:outputText value="#{item.preciototal}"/>
+                            </p:column>
+
+                            <p:column headerText="Fecha" >
+                                <h:outputText value="#{item.fechacotizacion}"/>
+                            </p:column>
+                 
+
+                        </p:dataTable>
+                    </h:form> 
+                </div>
+            </ui:define>
+
+            <ui:define name="bottom">
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

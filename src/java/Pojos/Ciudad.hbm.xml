@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2/11/2016 10:27:34 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Ciudad" table="ciudad" catalog="vidrieria" optimistic-lock="version">
+        <id name="idciudad" type="int">
+            <column name="idciudad" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="departamento" class="Pojos.Departamento" fetch="select">
+            <column name="iddepartamento" not-null="true" />
+        </many-to-one>
+        <property name="nombreCiu" type="string">
+            <column name="nombreCiu" length="45" not-null="true" />
+        </property>
+        <set name="empleados" table="empleado" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idciudad" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Empleado" />
+        </set>
+        <set name="clientes" table="cliente" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idciudad" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Cliente" />
+        </set>
+    </class>
+</hibernate-mapping>

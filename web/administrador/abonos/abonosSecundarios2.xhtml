@@ -1,0 +1,269 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+
+      xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <body>
+
+        <ui:composition template="./../../layaut/TemplateAdmin.xhtml">
+
+            <ui:define name="top">
+                <div class="container">
+                    <div class="row">
+               
+                        <div class="col-lg-3 col-md-3 col-xs-13 col-sm-3">
+
+                            <div class="panel panel-default div2">
+                                <div class="panel-heading color"><h3>Registrar Abonos Secundarios</h3>
+                                    Buscar Clientes</div>
+                                <div class="panel-body">
+                                    <h:form>
+                                        <p:growl showDetail="true" sticky="false"></p:growl>
+
+                                        <label>Digite el Numero de documento </label>
+                                        <p:inputText styleClass="form-control" value="#{mbAbonoSecundario.numeroDocumento}"/>
+                                        <br></br>
+                                        <p:commandButton styleClass="btn btn-block" value="Buscar" actionListener="#{mbAbonoSecundario.searchByDocumento()}"></p:commandButton>
+                                        <br></br>
+
+
+                                    </h:form>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-lg-9 col-md-9 col-xs-9 col-sm-9">
+                            <div class="panel panel-default div2">
+
+                                <div class="panel-body">
+                                    <div class="panel-heading color"></div>
+                                    <h:form id="frmActualizarInfoSitio"  styleClass="form-group" >
+
+                                        <p:growl id="growl" showDetail="true" sticky="true" />
+                                        <p:dataTable style="width: 98% !important;margin-left: 5px;" value="#{mbAbonoSecundario.listaAbonos}" var="item">
+                                               <f:facet name="header">
+                                <h2>Lista De Abonos Primario</h2>
+                            </f:facet>
+                                            <p:columnGroup  type="header">
+                                                <p:row>
+                                                    <p:column colspan="2" headerText="cliente: #{mbAbonoSecundario.cliente.nombre} #{mbAbonoSecundario.cliente.apellidos}" />
+                                                    <p:column colspan="2" headerText="Documento: #{mbAbonoSecundario.cliente.numeroDocumentoC}" />
+                                                    <p:column colspan="1" headerText="Telefono: #{mbAbonoSecundario.cliente.telefono}"/>
+                                                    <p:column colspan="3" headerText="Direccion: #{mbAbonoSecundario.cliente.direccion}"/>
+                                                </p:row>
+
+
+
+                                                <p:row>
+                                                    <p:column headerText="Abono #:" />
+                                                    <p:column headerText="Empleado" />
+                                                    <p:column headerText="Fecha" />
+                                                     <p:column headerText="Valor Mercancia" />
+                                                    <p:column headerText="Abono Inicial" />
+                                                    <p:column headerText="Saldo Final" />
+                                                    <p:column headerText="Registrar" />
+                                                    <p:column headerText="Ver Mas" />
+
+                                                </p:row>
+                                            </p:columnGroup>
+                                            <p:column headerText="codigo">
+                                                #{item.idabonos}
+                                            </p:column>
+                                            <p:column headerText="Empleado">
+                                                #{beanEmpleado.getById(item.empleado.idempleado).getNombre()}
+                                            </p:column>
+                                            <p:column headerText="Fecha">
+                                                #{item.fecharegistro}
+                                            </p:column>
+                                            <p:column headerText="Valo rMercancia">
+                                                #{item.precioTotal}
+                                            </p:column>
+                                            
+                                            <p:column headerText="Primer Abono">
+                                                #{item.montoabono}
+                                            </p:column>
+                                            <p:column headerText="Saldo Final">
+                                                #{item.saldofinal}
+                                            </p:column>
+                                            
+                                            <p:column headerText="Abono secundario">
+                                             <h:commandButton  pa:data-toggle="modal" pa:data-target="#myModal" value="Registar" class="btn btn-primary">
+                                        <f:ajax listener="#{mbAbonoSecundario.selectAbono(item.idabonos)}" render="growl frmModal2" event="click" />
+                                     </h:commandButton>
+                                   </p:column>
+                                            <p:column headerText="Abono secundario">
+                                    <h:commandButton  pa:data-toggle="modal" pa:data-target="#myModal1" value="Ver mas" class="btn btn-primary">
+                                        <f:ajax listener="#{mbAbonoSecundario.BuscarBYcodigoAbonoSecundario(item.idabonos)}" render="growl frmEliminarSitio" event="click" />
+                                    </h:commandButton>
+                                        </p:column>
+                                        </p:dataTable>
+
+                                    </h:form>
+                                </div>
+
+
+
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <h:form id="frmModal2" styleClass="modal-dialog"  role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Agregar Abono Secundario</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <label>Ingrese el valor del abono</label>
+                                                <h:inputText styleClass="form-control" pa:type="text" value="#{mbAbonoSecundario.abonosecundario.valorAbono}"></h:inputText>
+                                                <br></br>
+                                                <h:selectOneMenu value="#{mbAbonoSecundario.idEmpleado}" styleClass="form-control">
+                                                    <f:selectItem itemValue="0" itemLabel="Seleccione un Empleado"/>
+                                                    <f:selectItems value="#{beanEmpleado.all}" var="empleado" itemLabel="#{empleado.nombre}" itemValue="#{empleado.idempleado}"/>
+                                                </h:selectOneMenu>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                <h:commandButton value="Guardar Cambios" styleClass="btn btn-primary" actionListener="#{mbAbonoSecundario.save()}">
+                                                </h:commandButton>
+                                            </div>
+                                        </div>
+
+                                    </h:form>
+                                </div>
+
+
+                                <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <h:form id="frmEliminarSitio" styleClass="modal-dialog"  role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Lista Abonos Secundario</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p:dataTable style="width: 98% !important;margin-left: 5px;" value="#{mbAbonoSecundario.listaAbonoSecundario}" var="item">
+                                                    <f:facet   name="header">
+                                                        <a>
+                                                            <img class="logotipo" alt="Brand" src="/APPVIDIRERIA/resources/imagenes/imgVP.jpg" width="50" height="25" style="background: #fff;"></img>
+                                                        </a>
+                                                        <h3>Vidrios Palmira</h3> Alberto Jimenez Guzman.
+                                                        NIT: 6'645.506-5.
+                                                        <br></br>
+                                                        Telefono:2726887  2726801  2871472.
+                                                        Direccion: Carrera 35 # 28-45.
+                                                    </f:facet>
+                                                    <p:column headerText="Abono Secundario #:" >
+                                                        <h:outputText value="#{item.idabonosecun}"/>
+                                                    </p:column>
+
+                                                    <p:column headerText="Codigo Cuenta">
+                                                        <h:outputText value="#{item.abonos.idabonos}"/>
+                                                    </p:column>
+
+                                                    <p:column headerText=" Empleado" >
+                                                        <h:outputText value="#{beanEmpleado.getById(item.empleado.idempleado).getNombre()}"/>
+
+                                                    </p:column>
+
+                                                    <p:column headerText="Valor" >
+                                                        <h:outputText value="#{item.valorAbono}"/>
+                                                    </p:column>
+                                                    <p:column headerText="total" >
+                                                        <h:outputText value="#{item.saldoTotaL}"/>
+                                                    </p:column>
+
+                                                    <p:column headerText="Fecha">
+                                                        <h:outputText value="#{item.fechaRegistro}"/>
+                                                    </p:column>
+
+                                                    <p:column headerText="">
+                                  
+                                   <h:commandButton  pa:data-toggle="modal" pa:data-target="#myModal2" value="Ver mas" class="btn btn-primary">
+                                        <f:ajax listener="#{mbAbonoSecundario.BuscarBYcodigoAbono(item.idabonosecun)}" render="growl frmModal" event="click" />
+                                    </h:commandButton>
+                                           </p:column>
+                                                </p:dataTable>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+
+                                            </div>
+                                        </div>
+
+                                    </h:form>
+                                </div>
+
+                                
+                                
+                                
+                                <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <h:form id="frmModal" styleClass="modal-dialog"  role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Lista Abonos Secundario</h4>
+                                            </div>
+                                            <div  id="imprimeDiv" class="modal-body">
+                                                  
+                                                        <a>
+                                                            <img class="logotipo" alt="Brand" src="/ProyVidrios/resources/imagenes/imgVP.jpg" width="50" height="25" style="background: #fff;"></img>
+                                                        </a>
+                                                        <h3>Vidrios Palmira</h3> Alberto Jimenez Guzman.
+                                                        NIT: 6'645.506-5.
+                                                        <br></br>
+                                                        Telefono:2726887  2726801  2871472.
+                                                          <br></br>
+                                                        Direccion: Carrera 35 # 28-45.
+                                                 <hr></hr>
+                                                 <label>Abono Secundario # :  #{mbAbonoSecundario.abonoSelect.idabonosecun}</label>
+                                                <br></br>
+                                                 <label>Fecha  #{mbAbonoSecundario.abonoSelect.fechaRegistro}</label>
+                                                <br></br>
+                                                <label>Nombre Cliente #{mbAbonoSecundario.abonoSelect.abonos.cliente.nombre}</label>
+                                                <br></br>
+                                                 <label> Saldo #{mbAbonoSecundario.abonoSelect.abonos.saldofinal}</label>
+                                                <br></br>
+                                                <label>Monto Abonado  #{mbAbonoSecundario.abonoSelect.valorAbono}</label>
+                                                <br></br>
+                                               
+                                                <label> Saldo Final #{mbAbonoSecundario.abonoSelect.saldoTotaL}</label>
+                                                <br></br>
+                                              
+                                                
+                                              
+                           
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                <button onclick="imprimir()" type="button" class="btn btn-info" >Imprimir</button>
+                                             </div>
+                                        </div>
+
+                                    </h:form>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </ui:define>
+
+            <ui:define name="bottom">
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

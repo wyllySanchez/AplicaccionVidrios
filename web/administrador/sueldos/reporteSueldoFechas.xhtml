@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../layaut/TemplateAdmin.xhtml">
+
+            <ui:define name="content">
+                     <h:form id="formReporteFechas">
+                    <p:growl id="mensajeGeneral" showDetail="true"/>
+                    <center> <h2>Reporte Sueldos</h2></center>
+
+                    <div class="container">
+                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+
+
+                            <div class="panel-body">
+                                <h:form  styleClass="form-group" >
+                                    <p:growl id="growl" showDetail="true" sticky="true" />  
+
+                                    <h:outputLabel  value="Fecha Inicio" style="margin-left: 10px;"/>                                
+                                    <p:calendar id="FechaInicio" label="yyyy/mm/dd" pattern="yyyy/MM/dd" showOn="button" value="#{beanSueldo.fechaInicio}" />
+
+
+                                    <h:outputLabel  value="FechaFin" style="margin-left: 10px;"/>                                
+                                    <p:calendar id="FechaFinal" label="yyyy/mm/dd" pattern="yyyy/MM/dd" showOn="button" value="#{beanSueldo.fechaFin}" />
+
+
+
+                                    <h:commandButton styleClass="btn btn-primary col-sm-3" style="float: right; margin-right: 202px;" value="Agregar" actionListener="#{beanSueldo.consultarSueldo()}">
+                                        <p:ajax process="@this @form" update=":formReporteFechas:tbl"/>
+                                    </h:commandButton>
+                                      <a onclick="imprimir()" class="btn btn-warning col-lg-2 col-md-2 col-sm-2 col-xs-2 bajar" style="float: right; margin-right: -480px; ">Imprimir</a>
+
+                                </h:form>
+
+
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                            <p:dataTable id="tbl" var="lista" value="#{beanSueldo.listSueldoByFecha}">
+                               <f:facet   name="header">
+                                    <a>
+                                            <img class="logotipo" alt="Brand" src="/APPVIDIRERIA/resources/imagenes/imgVP.jpg" width="50" height="25" style="background: #fff;"></img>
+                                        </a>
+                                       <h3>Vidrios Palmira</h3> Alberto Jimenez Guzman.
+                                        NIT: 6'645.506-5.
+                                        <br></br>
+                                        Telefono:2726887  2726801  2871472.
+                                        Direccion: Carrera 35 # 28-45.
+
+
+                                    </f:facet>
+
+
+                                <p:column headerText="Empleado">
+                                    <h:outputText value="#{lista.empleado.idempleado}" />
+                                </p:column>
+                                <p:column  headerText="Fecha">
+                                    <h:outputText value="#{lista.fechaCreacionSueldo}" />
+                                </p:column>
+                                <p:column  headerText="Valor">
+                                    <h:outputText value="#{lista.sueldoTotal}" />
+                                </p:column>
+
+                                <p:columnGroup type="footer">
+                                    <p:row>
+
+                                        <p:column footerText=""/>
+                                        <p:column footerText=""/>
+                                        <p:column footerText="total Sueldos $:#{beanSueldo.totalVentasFecha}"/>
+
+                                    </p:row>
+
+                                </p:columnGroup>
+
+                            </p:dataTable>
+                        </div>
+                        <div class="row">
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="bottom">
+          
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

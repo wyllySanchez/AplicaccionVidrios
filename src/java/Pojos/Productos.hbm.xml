@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2/11/2016 10:27:34 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Productos" table="productos" catalog="vidrieria" optimistic-lock="version">
+        <id name="idproductos" type="java.lang.Integer">
+            <column name="idproductos" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="tipo" length="45" />
+        </property>
+        <property name="imgPrinci" type="string">
+            <column name="imgPrinci" length="65" />
+        </property>
+        <set name="cotizaciondetalles" table="cotizaciondetalle" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idproductos" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Cotizaciondetalle" />
+        </set>
+        <set name="abonodetalles" table="abonodetalle" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idproductos" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Abonodetalle" />
+        </set>
+        <set name="ventanadetalles" table="ventanadetalle" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idproductos" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Ventanadetalle" />
+        </set>
+    </class>
+</hibernate-mapping>

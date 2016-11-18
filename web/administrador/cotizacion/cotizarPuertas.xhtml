@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../layaut/TemplateAdmin.xhtml">
+
+            <ui:define name="top">
+                <div class="container" style="margin-top: 30px;">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                            <div id="imprimeDiv">
+                                <p:outputLabel value="hola" rendered="false"></p:outputLabel>
+
+                                <div  class="panel panel-default div2">
+                                    <div class="panel-heading " style="background-color: #c4e3f3;">Precio cotizacion Puertas</div>
+                                    <div class="panel-body">
+                                        <h:form  styleClass="form-group" >
+                                            <h:outputText value="Nombre producto: #{mbCalcularPuerta.nombreProducto} ">
+                                            </h:outputText> 
+                                                <br></br>
+                                        <h:outputText value="  Precio Unitario $ :  #{mbCalcularPuerta.precioTotal}">
+                                        </h:outputText>
+                                        <br></br>
+                                      <h:outputText value="  Cantidad Ventanas :  #{mbCalcularPuerta.mensajeCanti}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="  Precio total $ :  #{mbCalcularPuerta.precioTotalCantidad}">
+                                            </h:outputText>
+                                            <br></br>
+
+                                        </h:form>
+                                    </div>
+                                </div>
+
+
+                                <div class="panel panel-default div2">
+                                    <div class="panel-heading " style="background-color: #c4e3f3;">Medida Recorte de Materiales Puertas</div>
+                                    <div class="panel-body">
+                                        <h:form  styleClass="form-group" >
+
+
+                                            <div></div>
+
+                                           
+                                            <h:outputText value=" Recorte: #{mbCalcularPuerta.mensajeAluminio3Alto}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value=" Recorte: #{mbCalcularPuerta.mensajeAluminio3Ancho}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value=" Recorte:  #{mbCalcularPuerta.mensajeNaveAlto}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value=" Recorte:  #{mbCalcularPuerta.mensajeNaveAncho}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="  Recorte:  #{mbCalcularPuerta.mensajePisaVidriosAncho}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="  Recorte:  #{mbCalcularPuerta.mensajePisavidriosAlto}">
+                                            </h:outputText>
+                                            <br></br>
+
+                                            <h:outputText value="  Recorte:  #{mbCalcularPuerta.mensajePartidor}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="  Recorte:  #{mbCalcularPuerta.mensajePerfilU71}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="  Cantidad:  #{mbCalcularPuerta.mensajePibotes}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="  Cantidad:  #{mbCalcularPuerta.mensajeVarillasTensoras}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="  Cantidad:  #{mbCalcularPuerta.mensajeChapa}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="  Cantidad:  #{mbCalcularPuerta.mensajeEscuadras1}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="  Cantidad:  #{mbCalcularPuerta.mensajeVisagras}">
+                                            </h:outputText>
+                                            <br></br>
+                                               <h:outputText value="  Recorte :  #{mbCalcularPuerta.mensajeVidrio}">
+                                        </h:outputText>
+                                        <br></br>
+                                            
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                            <div class="panel panel-default div2">
+                                <div class="panel-heading " style="background-color: #c4e3f3;">Realizar Cotizacion Puerta</div>
+                                <div class="panel-body">
+                                    <h:form  styleClass="form-group" >
+                                        <p:growl id="growl" showDetail="true" sticky="true" /> 
+
+                                        <label>Digite el Alto</label>
+                                        <h:inputText styleClass="form-control" value="#{mbCalcularPuerta.alto}"></h:inputText>
+                                        <label class="bajar">Digite el Ancho</label>
+                                        <h:inputText  value="#{mbCalcularPuerta.ancho}" styleClass="form-control"></h:inputText>
+                                        <label class="bajar">Digite el porcentaje de ganancia</label>
+                                        <h:inputText value="#{mbCalcularPuerta.ganancia}" styleClass="form-control"></h:inputText>
+                                        <label class="bajar">Digite el costo de la mano de obra</label>
+                                        <h:inputText value="#{mbCalcularPuerta.manObra}"  styleClass="form-control"></h:inputText>
+                                        <label class="bajar">Cantidad de Puertas</label>
+                                        <h:inputText value="#{mbCalcularPuerta.canti}"  styleClass="form-control"></h:inputText>
+                                        <label class="bajar">Seleccione un tipo de Puerta</label>
+                                        <h:selectOneMenu value="#{mbCalcularPuerta.tipoVentana}" styleClass="form-control">
+                                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Puerta"/>
+                                            <f:selectItem itemValue="1" itemLabel="2 Aluminio T87 y Vidrio"/>
+                                            <f:selectItem itemValue="2" itemLabel="3 Emtamborada T103"/>
+                                            <f:selectItem itemValue="3" itemLabel="4 Aluminio T87 y Entamborado F06"/>
+                                            <f:selectItem itemValue="4" itemLabel="5 Aluminio T103 y vidrio"/>
+                                            <f:selectItem itemValue="5" itemLabel="5 Aluminio Alamo 1 1/2 y Vidrio"/>
+                                        </h:selectOneMenu>
+                                        
+                                          <label class="bajar">Seleccione un tipo de vidrio</label>
+                                        <h:selectOneMenu value="#{mbCalcularPuerta.idVidrio}" styleClass="form-control">
+                                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de vidrio"/>
+                                            <f:selectItems value="#{mbVidrios.all}" var="vidrio" itemLabel="#{vidrio.calibre}" itemValue="#{vidrio.idvidrios}"/>
+                                        </h:selectOneMenu>
+
+
+                                        <h:commandButton styleClass="btn btn-info col-lg-6 col-md-6 col-sm-6 col-xs-6  bajar" value="Calcular Puerta" actionListener="#{mbCalcularPuerta.calcularCosto()}">
+                                        </h:commandButton>
+                                        <a onclick="imprimir()" class="btn btn-warning col-lg-6 col-md-6 col-sm-6 col-xs-6 bajar">Imprimir</a>
+
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </ui:define>
+
+            <ui:define name="bottom">
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/vidrieria?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">root</property>
+    <mapping resource="Pojos/Rol.hbm.xml"/>
+    <mapping resource="Pojos/Vitrinas.hbm.xml"/>
+    <mapping resource="Pojos/Cliente.hbm.xml"/>
+    <mapping resource="Pojos/Cotizacion.hbm.xml"/>
+    <mapping resource="Pojos/Abonodetalle.hbm.xml"/>
+    <mapping resource="Pojos/Departamento.hbm.xml"/>
+    <mapping resource="Pojos/Sueldo.hbm.xml"/>
+    <mapping resource="Pojos/Vidrios.hbm.xml"/>
+    <mapping resource="Pojos/Empleado.hbm.xml"/>
+    <mapping resource="Pojos/Abonos.hbm.xml"/>
+    <mapping resource="Pojos/Ventanadetalle.hbm.xml"/>
+    <mapping resource="Pojos/Productos.hbm.xml"/>
+    <mapping resource="Pojos/Ciudad.hbm.xml"/>
+    <mapping resource="Pojos/Tipodocumento.hbm.xml"/>
+    <mapping resource="Pojos/Puertas.hbm.xml"/>
+    <mapping resource="Pojos/Facturas.hbm.xml"/>
+    <mapping resource="Pojos/Cotizaciondetalle.hbm.xml"/>
+    <mapping resource="Pojos/Materiales.hbm.xml"/>
+    <mapping resource="Pojos/Abonosecundario.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <h:head>
+        <title>VidriosPalmira</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes"></meta>
+       <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/style.css"></link>
+       <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans'></link>
+       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
+    </h:head>
+    <h:body>
+
+<!-- hola -->
+   <h:form styleClass="cont">
+       
+    <!-- hola -->
+    <div></div>
+  <div class="demo">
+    <div class="login">
+      <div class="login__check"></div>
+      <div class="login__form">
+          <h:outputLabel styleClass="login_error" value="#{mbLogin.mensaje}"></h:outputLabel>
+        <div class="login__row">
+          <i class="material-icons color">account_circle</i>
+          <h:inputText pa:type="email" value="#{mbLogin.correoElectronico}" styleClass="login__input name" pa:placeholder="Correo Electronico">
+          </h:inputText>
+        </div>
+        <div class="login__row">
+        <i class="material-icons color">lock</i>
+        <h:inputSecret  value="#{mbLogin.password}" styleClass="login__input pass" pa:placeholder="Contraseña">
+          </h:inputSecret>
+        </div>
+          <h:commandButton styleClass="login__submit" value="Ingresar" action="#{mbLogin.login()}">
+           </h:commandButton>
+      </div>
+    </div>
+  </div>
+</h:form>
+
+     
+
+    </h:body>
+</html>
+

@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pa="http://xmlns.jcp.org/jsf/passthrough">
+
+    <body>
+
+        <ui:composition template="./../../layaut/TemplateAdmin.xhtml">
+
+            <ui:define name="top">
+                <h:form>
+                    <div class="container">
+                        
+                        <p:layout fullPage="true">
+                            <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true" style="background-color: #c9302c;">
+                                <center><h2 >registro de Vidrios</h2></center> 
+
+                            </p:layoutUnit>
+
+                            <p:layoutUnit position="west" size="245" header="Menu" collapsible="true">
+                                <p:menu style="width: 230px;">
+                                    <p:submenu label="Vidrios" style="background-color: #419641;">
+                                        <p:menuitem value="Registrar Vidrios" outcome="/administrador/vidrios/registrarVidrios.xhtml" />
+                                        <p:menuitem value="Lista de Vidrios" outcome="/administrador/vidrios/listaVidrios.xhtml" />
+                                        <p:menuitem value="Lista Filtrada" outcome="/administrador/vidrios/vidriosFiltrados.xhtml"/>
+
+
+                                    </p:submenu>
+                                    <p:submenu label="Ventanas" style="background-color: #c9302c;">
+                                        <p:menuitem value="Registrar"  outcome="/administrador/materiales/registrarMateriales.xhtml"/>
+                                        <p:menuitem value="Lista Materiales" outcome="/administrador/materiales/listaMateriales.xhtml"  />
+                                        <p:menuitem value="Lista Filtrada" outcome="/administrador/materiales/materialesFiltrados.xhtml" />
+
+                                    </p:submenu>
+                                    <p:submenu label="Puertas" style="background-color: #ec971f;">
+                                        <p:menuitem value="Registrar Puertas" outcome="/administrador/puertas/registrarPuerta.xhtml" />
+                                        <p:menuitem value="Lista Puertas" outcome="/administrador/puertas/listaPuertas.xhtml"/>
+                                        <p:menuitem value="Lista Filtrada" outcome="/administrador/puertas/puertasFiltrado.xhtml" />
+
+                                    </p:submenu>
+                                    <p:submenu label="Vitrinas" style="background-color: #c1e2b3;">
+                                        <p:menuitem value="Registrar Vitrina" outcome="/administrador/vitrinas/registrarVitrinas.xhtml" />
+                                        <p:menuitem value="Lista Vitrina" outcome="/administrador/vitrinas/listaVitrinas.xhtml"/>
+                                        <p:menuitem value="Lista Filtrada" outcome="/administrador/vitrinas/vitrinasFiltrados.xhtml" />
+
+                                    </p:submenu>
+
+                                </p:menu>
+                            </p:layoutUnit>
+
+                            <p:layoutUnit position="center">
+                                <div id="registro-Productos">                     
+
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+
+                                            <div class="panel panel-default div2">
+                                                <div class="panel-heading" style="background-color: #f7e1b5;">Vidrios</div>
+                                                <div class="panel-body">
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                                            <div class="panel panel-default div2">
+                                                <div class="panel-heading" style="background-color: #f7e1b5;">Registro de Vidrios</div>
+                                                <div class="panel-body">
+
+                                                    <h:form  styleClass="form-group" >
+
+                                                        <p:growl id="growl" showDetail="true" sticky="true" />
+
+
+                                                        <h:inputText autocomplete="off" id="NombreVidrios" pa:placeholder="Nombre Vidrio" value="#{mbVidrios.vidrios.calibre}" class="form-control" style="margin-top: 10px">
+                                                            <f:validator validatorId="validatorVacio"/>
+                                                        </h:inputText>
+                                                        <h:inputText autocomplete="off" id="Precio" pa:placeholder="Precio costo" value="#{mbVidrios.vidrios.preciocost}" class="form-control" style="margin-top: 10px">
+                                                            <f:validator validatorId="validatorVacio"/>
+                                                        </h:inputText>
+                                                        <br></br>
+
+
+
+                                                        <h:commandButton value="Registrar" class="btn btn-warning btn-md btn-block" action="#{mbVidrios.registrar()}"/>
+
+                                                    </h:form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>      
+                            </p:layoutUnit>
+
+                        </p:layout>
+
+                    </div>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="bottom">
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

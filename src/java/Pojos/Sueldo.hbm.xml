@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2/11/2016 10:27:34 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Sueldo" table="sueldo" catalog="vidrieria" optimistic-lock="version">
+        <id name="idsueldo" type="java.lang.Integer">
+            <column name="idsueldo" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="empleado" class="Pojos.Empleado" fetch="select">
+            <column name="idempleado" not-null="true" />
+        </many-to-one>
+        <property name="sueldoBase" type="big_decimal">
+            <column name="sueldoBase" precision="18" not-null="true" />
+        </property>
+        <property name="comision" type="big_decimal">
+            <column name="comision" precision="18" not-null="true" />
+        </property>
+        <property name="horasExtras" type="java.lang.Integer">
+            <column name="horasExtras" />
+        </property>
+        <property name="descuentos" type="big_decimal">
+            <column name="descuentos" precision="18" />
+        </property>
+        <property name="sueldoTotal" type="big_decimal">
+            <column name="sueldoTotal" precision="18" not-null="true" />
+        </property>
+        <property name="fechaCreacionSueldo" type="timestamp">
+            <column name="fechaCreacionSueldo" length="19" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

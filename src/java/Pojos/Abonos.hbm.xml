@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2/11/2016 10:27:34 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Abonos" table="abonos" catalog="vidrieria" optimistic-lock="version">
+        <id name="idabonos" type="java.lang.Integer">
+            <column name="idabonos" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="cliente" class="Pojos.Cliente" fetch="select">
+            <column name="idcliente" not-null="true" />
+        </many-to-one>
+        <many-to-one name="empleado" class="Pojos.Empleado" fetch="select">
+            <column name="idempleado" not-null="true" />
+        </many-to-one>
+        <property name="precioTotal" type="java.lang.Long">
+            <column name="precioTotal" />
+        </property>
+        <property name="montoabono" type="java.lang.Long">
+            <column name="montoabono" />
+        </property>
+        <property name="saldofinal" type="java.lang.Long">
+            <column name="saldofinal" />
+        </property>
+        <property name="fecharegistro" type="timestamp">
+            <column name="fecharegistro" length="19" not-null="true" />
+        </property>
+        <set name="abonodetalles" table="abonodetalle" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idabonos" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Abonodetalle" />
+        </set>
+        <set name="abonosecundarios" table="abonosecundario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idabonos" not-null="true" />
+            </key>
+            <one-to-many class="Pojos.Abonosecundario" />
+        </set>
+    </class>
+</hibernate-mapping>

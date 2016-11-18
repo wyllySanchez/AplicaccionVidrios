@@ -1,0 +1,269 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../layaut/TemplateAdmin.xhtml">
+
+            <ui:define name="top">
+                <div class="container" style="margin-top: 30px;">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                            <div id="imprimeDiv">
+                                <p:outputLabel value="hola" rendered="false"></p:outputLabel>
+
+                                <div  class="panel panel-default div2">
+                                    <div class="panel-heading " style="background-color: #c4e3f3;">Precio Cotizacion Productos </div>
+                                    <div class="panel-body">
+                                        <h:form id="frmImprime1" styleClass="form-group" >
+                                            <h:outputText value="Nombre producto: #{mbCalcular.nombreProducto} ">
+                                            </h:outputText> 
+                                            <br></br>
+                                            <h:outputText value="  Precio Unitario $ :  #{mbCalcular.precioTotal}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="  Cantidad  :  #{mbCalcular.mensajeCanti}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="  Precio total $ :  #{mbCalcular.precioTotalCantidad}">
+                                            </h:outputText>
+                                            <br></br>
+                                        </h:form>
+                                    </div>
+                                </div>
+
+
+                                <div class="panel panel-default div2">
+                                    <div class="panel-heading " style="background-color: #c4e3f3;">Medida Recorte de Materiales</div>
+                                    <div class="panel-body">
+                                        <h:form id="frmImprime2" styleClass="form-group" >
+                                            <div></div>
+                                            <!--  recortes para ventanas-->
+                                            <h:outputText value="     #{mbCalcular.mensajeCabezal}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="     #{mbCalcular.mensajeSillar}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="   #{mbCalcular.mensajeJamba}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="    #{mbCalcular.mensajeTraslape}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="    #{mbCalcular.mensajeEnganche}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="    #{mbCalcular.mensajeHSuperior}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="    #{mbCalcular.mensajeHInferior}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="    #{mbCalcular.mensajeAdactador}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="   :  #{mbCalcular.mensajeVidrio}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <!--  recortes para puertas-->
+                                            <h:outputText   value="#{mbCalcular.mensajeAluminio3Alto}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value=" #{mbCalcular.mensajeAluminio3Ancho}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value=" #{mbCalcular.mensajeNaveAlto}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value=" #{mbCalcular.mensajeNaveAncho}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value=" #{mbCalcular.mensajePisaVidriosAncho}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="    #{mbCalcular.mensajePisavidriosAlto}">
+                                            </h:outputText>
+                                            <br></br>
+
+                                            <h:outputText value="    #{mbCalcular.mensajePartidor}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="    #{mbCalcular.mensajePerfilU71}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="    #{mbCalcular.mensajePibotes}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="    #{mbCalcular.mensajeVarillasTensoras}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="    #{mbCalcular.mensajeChapa}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="    #{mbCalcular.mensajeEscuadras1}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="    #{mbCalcular.mensajeVisagras}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText value="     #{mbCalcular.mensajeVidrioPuerta}">                                                  
+                                            </h:outputText>
+                                            <br></br>
+
+                                            <!--  recortes para vitinas-->
+                                            <h:outputText  value="  #{mbCalcular.mensajeCuartoCirculoAlto}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText  value="  #{mbCalcular.mensajeCuartoCirculoAncho}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText  value="   #{mbCalcular.mensajeCuartoCirculoFondo}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText   value="   #{mbCalcular.mensajeAnguloMediaAlto}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText  value="    #{mbCalcular.mensajeAnguloMediaAncho}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText  value="    #{mbCalcular.mensajeAnguloMediaFondo}">
+                                            </h:outputText>
+                                            <br></br>
+
+                                            <h:outputText  value="    #{mbCalcular.mensajeNaveDivisionAncho}">
+                                            </h:outputText>
+                                            <br></br>
+
+                                            <h:outputText  value="    #{mbCalcular.mensajeVidrioAltoAncho}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText  value="   #{mbCalcular.mensajeVidrioAltoFondo}">
+                                            </h:outputText>
+                                            <br></br>
+                                            <h:outputText  value="   #{mbCalcular.mensajeVidrioAnchoFondo}">
+                                            </h:outputText>
+
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                            <div class="panel panel-default div2">
+                                <div class="panel-heading " style="background-color: #c4e3f3;">Realizar Cotizacion Ventanas</div>
+                                <div class="panel-body">
+                                    <h:form  styleClass="form-group" >
+                                        <p:growl id="growl" showDetail="true" sticky="true" /> 
+                                        <label class="bajar">Seleccione un tipo de producto</label>
+                                        <h:selectOneMenu  value="#{mbCalcular.tipoProducto}" styleClass="form-control">
+                                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Producto"/>
+                                            <f:ajax event="change" render="@form"/>
+                                            <f:selectItem itemValue="1" itemLabel="Ventana"/>
+                                            <f:selectItem itemValue="2" itemLabel="Puertas"/>
+                                            <f:selectItem itemValue="3" itemLabel="Vitrina"/>
+                                        </h:selectOneMenu>
+
+                                        <h:outputLabel rendered="#{mbCalcular.tipoProducto==3}" styleClass="bajar">Seleccione un tipo de Vitrina</h:outputLabel>
+                                        <h:selectOneMenu rendered="#{mbCalcular.tipoProducto==3}" value="#{mbCalcular.tipoVitrina}" styleClass="form-control" style="margin-top: 10px;">
+                                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Vitrina"/>
+                                            <f:selectItem itemValue="1" itemLabel="Vitrina CuartoCirculo 1 1/2"/>
+                                            <f:selectItem itemValue="2" itemLabel="Vitrina Perfil Esquinero 1"/>
+                                            <f:selectItem itemValue="3" itemLabel="Vitrina Pefil Esquinero 1 Larga"/>
+                                        </h:selectOneMenu> 
+
+                                        <h:outputLabel rendered="#{mbCalcular.tipoProducto==3}" styleClass="bajar">Seleccione cantidad entrepaños</h:outputLabel>
+                                        <h:selectOneMenu rendered="#{mbCalcular.tipoProducto==3}" value="#{mbCalcular.tipoEntrepanos}" styleClass="form-control" style="margin-top: 10px;">
+                                            <f:selectItem itemValue="0" itemLabel="Seleccione Cantidad Entrepaños"/>
+                                            <f:selectItem itemValue="1" itemLabel="3 entrepaños"/>
+                                            <f:selectItem itemValue="2" itemLabel="4 entrepaños"/>
+                                        </h:selectOneMenu>
+
+                                        <h:outputLabel rendered="#{mbCalcular.tipoProducto==2}" styleClass="bajar">Seleccione un tipo de Puerta</h:outputLabel>
+                                        <h:selectOneMenu rendered="#{mbCalcular.tipoProducto==2}" value="#{mbCalcular.tipoPuerta}" styleClass="form-control">
+                                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Puerta"/>
+                                            <f:selectItem itemValue="1" itemLabel="2 Aluminio T87 y Vidrio"/>
+                                            <f:selectItem itemValue="2" itemLabel="3 Emtamborada T103"/>
+                                            <f:selectItem itemValue="3" itemLabel="4 Aluminio T87 y Entamborado F06"/>
+                                            <f:selectItem itemValue="4" itemLabel="5 Aluminio T103 y vidrio"/>
+                                            <f:selectItem itemValue="5" itemLabel="6 Aluminio Alamo 1 1/2 y Vidrio"/>
+                                        </h:selectOneMenu>
+                                             <h:outputLabel rendered="#{mbCalcular.tipoProducto==2}" styleClass="bajar">Selecione un color de aluminio</h:outputLabel>
+                                             <h:selectOneMenu  rendered="#{mbCalcular.tipoProducto==2}" value="#{mbCalcular.tipoAluminioPuerta}" styleClass="form-control">
+                                            <f:selectItem itemValue="0" itemLabel="Seleccione un color de Aluminio"/>
+                                            <f:selectItem itemValue="1" itemLabel=" 2 Aluminio  natural"/>
+                                            <f:selectItem itemValue="2" itemLabel=" 3 Aluminio  Anolo"/>     
+                                            <f:selectItem itemValue="3" itemLabel=" 4 Aluminio  Color"/>
+                                        </h:selectOneMenu>
+
+                                        <h:outputLabel rendered="#{mbCalcular.tipoProducto==1}" styleClass="bajar">Seleccione un tipo de Ventana</h:outputLabel>
+                                        <h:selectOneMenu id="tipoVentana" value="#{mbCalcular.tipoVentana}" styleClass="form-control"
+                                                         rendered="#{mbCalcular.tipoProducto==1}">
+                                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Ventana"/>
+                                            <f:selectItem itemValue="1" itemLabel="2 Cuerpos"/>
+                                            <f:selectItem itemValue="2" itemLabel="3 Cuerpos"/>
+                                            <f:selectItem itemValue="3" itemLabel="4 Cuerpos"/>
+                                            <f:selectItem itemValue="4" itemLabel="Vidrio individual"/>
+                                        </h:selectOneMenu>
+
+                                        <h:outputLabel rendered="#{mbCalcular.tipoProducto==1}" styleClass="bajar">Selecione un tipo de aluminio</h:outputLabel>
+                                        <h:selectOneMenu  rendered="#{mbCalcular.tipoProducto==1}" value="#{mbCalcular.tipoAluminio}" styleClass="form-control">
+                                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de Aluminio"/>
+                                            <f:selectItem itemValue="1" itemLabel="Aluminio 744 natural"/>
+                                            <f:selectItem itemValue="2" itemLabel="Aluminio 5020 natural"/>
+                                            <f:selectItem itemValue="3" itemLabel="Aluminio 8025 natural"/>
+                                            <f:selectItem itemValue="4" itemLabel="Aluminio 744 Anolo"/>
+                                            <f:selectItem itemValue="5" itemLabel="Aluminio 5020 Anolo"/>
+                                            <f:selectItem itemValue="6" itemLabel="Aluminio 8025 Anolo"/>
+                                            <f:selectItem itemValue="7" itemLabel="Aluminio 744 Color"/>
+                                            <f:selectItem itemValue="8" itemLabel="Aluminio 5020 Color"/>
+                                            <f:selectItem itemValue="9" itemLabel="Aluminio 8025 Color"/>
+                                        </h:selectOneMenu>
+                                        <label>Digite el Alto</label>
+                                        <h:inputText styleClass="form-control" value="#{mbCalcular.alto}"></h:inputText>
+                                        <label class="bajar">Digite el Ancho</label>
+                                        <h:inputText  value="#{mbCalcular.ancho}" styleClass="form-control"></h:inputText>
+                                        <h:outputLabel rendered="#{mbCalcular.tipoProducto==3}" styleClass="bajar">Digite el fondo</h:outputLabel>
+                                        <h:inputText   value="#{mbCalcular.fondo}" rendered="#{mbCalcular.tipoProducto==3}" styleClass="form-control"></h:inputText>
+                                        <label class="bajar">Digite el porcentaje de ganancia</label>
+                                        <h:inputText value="#{mbCalcular.ganancia}" styleClass="form-control"></h:inputText>
+                                        <label class="bajar">Digite el costo de la mano de obra</label>
+                                        <h:inputText value="#{mbCalcular.manObra}"  styleClass="form-control"></h:inputText>
+                                        <label class="bajar">Seleccione un tipo de vidrio</label>
+                                        <h:selectOneMenu value="#{mbCalcular.idVidrio}" styleClass="form-control">
+                                            <f:selectItem itemValue="0" itemLabel="Seleccione un tipo de vidrio"/>
+                                            <f:selectItems value="#{mbVidrios.all}" var="vidrio" itemLabel="#{vidrio.calibre}" itemValue="#{vidrio.idvidrios}"/>
+                                        </h:selectOneMenu>   
+                                        <label class="bajar">Cantidad </label>
+                                        <h:inputText value="#{mbCalcular.canti}"  styleClass="form-control"></h:inputText>
+                                        <h:commandButton styleClass="btn btn-info col-lg-6 col-md-6 col-sm-6 col-xs-6  bajar" value="Calcular" actionListener="#{mbCalcular.tipoProducto()}">
+                                        </h:commandButton>
+
+                                        <p:commandButton value="Imprimr" styleClass="btn btn-info col-lg-5 col-md-5 col-sm-5 col-xs-5 " onclick="imprimir()"/>
+
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </ui:define>
+
+            <ui:define name="bottom">
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

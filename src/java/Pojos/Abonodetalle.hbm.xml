@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2/11/2016 10:27:34 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojos.Abonodetalle" table="abonodetalle" catalog="vidrieria" optimistic-lock="version">
+        <id name="idabonoDetalle" type="java.lang.Integer">
+            <column name="idabonoDetalle" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="abonos" class="Pojos.Abonos" fetch="select">
+            <column name="idabonos" not-null="true" />
+        </many-to-one>
+        <many-to-one name="productos" class="Pojos.Productos" fetch="select">
+            <column name="idproductos" not-null="true" />
+        </many-to-one>
+        <property name="nombrepro" type="string">
+            <column name="nombrepro" length="45" not-null="true" />
+        </property>
+        <property name="cantidad" type="java.lang.Integer">
+            <column name="cantidad" />
+        </property>
+        <property name="precioventa" type="long">
+            <column name="precioventa" not-null="true" />
+        </property>
+        <property name="total" type="java.lang.Long">
+            <column name="total" />
+        </property>
+        <property name="preccioTrabajo" type="java.lang.Integer">
+            <column name="preccioTrabajo" />
+        </property>
+        <property name="porcentajeganancia" type="java.lang.Integer">
+            <column name="porcentajeganancia" />
+        </property>
+        <property name="alto" type="string">
+            <column name="alto" length="45" />
+        </property>
+        <property name="ancho" type="string">
+            <column name="ancho" length="45" />
+        </property>
+        <property name="fondo" type="string">
+            <column name="fondo" length="45" />
+        </property>
+        <property name="imgPrincipal" type="string">
+            <column name="imgPrincipal" length="75" />
+        </property>
+    </class>
+</hibernate-mapping>

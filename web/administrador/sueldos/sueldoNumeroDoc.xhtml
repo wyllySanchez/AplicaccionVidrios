@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../layaut/TemplateAdmin.xhtml">
+
+            <ui:define name="top">
+                <div class="container">
+                    <div class="row">
+                   
+                        <hr></hr>
+                        <div class="col-lg-3 col-md-3 col-xs-13 col-sm-3">
+
+                            <div class="panel panel-default div2">
+                                <div class="panel-heading " style="background-color: #449d44"><h3>Buscar Empleado</h3></div>
+                                <div class="panel-body">
+                                    <h:form>
+                                        <p:growl showDetail="true" sticky="false"></p:growl>
+
+                                        <label>Digite el Numero de documento </label>
+                                        <h:inputText styleClass="form-control" value="#{beanSueldo.numeroDocumento}"/>
+                                        <br></br>
+                                        <h:commandButton styleClass="btn btn-block btn-info" value="Buscar" actionListener="#{beanSueldo.searchByDocumento()}"></h:commandButton>
+                                        <br></br>
+
+
+                                    </h:form>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-lg-9 col-md-9 col-xs-9 col-sm-9">
+                            <div class="panel panel-default div2">
+
+                                <div class="panel-body">
+                                    <div class="panel-heading color">Lista De Sueldo Empledo</div>
+                                    <h:form rendered="#{beanSueldo.listaSueldo!=null}"  styleClass="form-group" >
+
+                                        <p:growl id="growl" showDetail="true" sticky="true" />
+                                        <p:dataTable style="width: 98% !important;margin-left: 5px;" value="#{beanSueldo.listaSueldo}" var="item">
+                                                <f:facet name="header">
+                                              <h2>Lista Sueldos Por Numero Documento</h2>
+                                            </f:facet>
+                                            <p:columnGroup  type="header">
+                                                <p:row>
+                                                    <p:column colspan="2" headerText=" #{beanSueldo.empleado.nombre} #{beanSueldo.empleado.apellidos}" />
+                                                    <p:column colspan="2" headerText="Doc: #{beanSueldo.empleado.numeroDocumento}" />
+                                                    <p:column colspan="1" headerText="Tel: #{beanSueldo.empleado.telefono}"/>
+                                                    <p:column colspan="2" headerText="Dir: #{beanSueldo.empleado.direccion}"/>
+
+                                                </p:row>
+
+
+
+                                                <p:row>
+                                                
+                                                    <p:column headerText="fecha" />
+                                                    <p:column headerText="Sueldo Base" />
+                                                    <p:column headerText="Comision" />
+                                                    <p:column headerText="Horas Extras" />
+                                                    <p:column headerText="Descuentos" />
+                                                    <p:column headerText="Saldo Total" />
+                                                    <p:column headerText="" />
+
+
+                                                </p:row>
+                                            </p:columnGroup>
+                                         
+
+                                            <p:column headerText="Fecha">
+                                                #{item.fechaCreacionSueldo}
+                                            </p:column>
+                                            <p:column headerText="Sueldo Base">
+                                                #{item.sueldoBase}
+                                            </p:column>
+                                            <p:column headerText="comision">
+                                                #{item.comision}
+                                            </p:column>
+                                            <p:column headerText="Horas exras">
+                                                #{item.horasExtras}
+                                            </p:column>
+                                            <p:column headerText="Descuentos">
+                                                #{item.descuentos}
+                                            </p:column>
+                                            <p:column headerText="Saldo Final">
+                                                #{item.sueldoTotal}
+                                            </p:column>
+                                            <p:column headerText="Abono secundario">
+                                                <h:form>
+                                                    <button type="button" jsf:onclick="#{beanSueldo.BuscarBYcodigoSueldo(item.idsueldo)}" class="btn btn-info" pa:data-toggle="modal" pa:data-target="#myModal1">
+                                                        Ver Mas
+                                                    </button>
+                                                </h:form>
+
+                                            </p:column>
+                                        </p:dataTable>
+
+                                    </h:form>
+                                </div>
+
+                                <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <h:form  styleClass="modal-dialog"  role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Sueldo Empleado</h4>
+                                            </div>
+                                            <div id="imprimeDiv" class="modal-body">
+                                                   <a>
+                                            <img class="logotipo" alt="Brand" src="/APPVIDIRERIA/resources/imagenes/imgVP.jpg" width="50" height="25" style="background: #fff;"></img>
+                                        </a>
+                                       <h3>Vidrios Palmira</h3> Alberto Jimenez Guzman.
+                                        NIT: 6'645.506-5.
+                                        <br></br>
+                                        Telefono:2726887  2726801  2871472.
+                                        <br></br>
+                                        Direccion: Carrera 35 # 28-45.
+                                        <hr></hr>
+                                          <label>Fecha  #{beanSueldo.sueldoSelect.fechaCreacionSueldo}</label>
+                                                <br></br>
+                                                <label>Nombre empleado: #{beanEmpleado.getById(beanSueldo.sueldoSelect.empleado.idempleado).getNombre()} #{beanEmpleado.getById(beanSueldo.sueldoSelect.empleado.idempleado).getApellidos()}</label>
+                                                <br></br>
+                                                     <label>Numero Documento: #{beanEmpleado.getById(beanSueldo.sueldoSelect.empleado.idempleado).getNumeroDocumento()}</label>
+                                                <br></br>
+                                               <label>Sueldo base:  #{beanSueldo.sueldoSelect.sueldoBase}</label>
+                                                <br></br>
+                                               
+                                                <label>Comision:  #{beanSueldo.sueldoSelect.comision}</label>
+                                                <br></br>
+                                                <label>Hora Extras: #{beanSueldo.sueldoSelect.horasExtras}</label>
+                                                <br></br>
+                                                <label>Descuentos:  #{beanSueldo.sueldoSelect.descuentos}</label>
+                                                <br></br>
+                                                
+                                                <label>Sueldo Total:  #{beanSueldo.sueldoSelect.sueldoTotal}</label>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                <button onclick="imprimir()" type="button" class="btn btn-info" >Imprimir</button>
+                                             </div>
+                                        </div>
+
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+            <ui:define name="bottom">
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
